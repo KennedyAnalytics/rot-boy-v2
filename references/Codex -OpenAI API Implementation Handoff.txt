@@ -1,0 +1,790 @@
+# AI Motion Graphics Studio
+## Codex / OpenAI API Implementation Handoff
+### Phase: Continuity & Film Direction v1
+
+## 1. Mission
+
+Implement the first bounded **Continuity & Film Direction** layer for the AI Motion Graphics Studio.
+
+The studio already works end-to-end.
+
+Do not rebuild it.
+
+The purpose of this phase is to make the rendered films behave more like deliberately directed motion-design films rather than a sequence of competent but repetitive card-based chapters.
+
+The next system should think across the **whole film**, not only one chapter at a time.
+
+Core question:
+
+> What visual idea should persist, evolve, transform, disappear, and return across this film so the viewer experiences one directed explanation rather than separate chapter layouts?
+
+This phase is both:
+
+- creative-system development;
+- production implementation.
+
+Its success must be demonstrated in actual rendered output.
+
+---
+
+# 2. Current authoritative baselines
+
+## Mara operational baseline
+
+`out/prod-harden/film.mp4`
+
+Status:
+
+> current operational Mara baseline
+
+## Cold-script fixture
+
+`out/prod-cold/film.mp4`
+
+Status:
+
+> first cold-script validation fixture
+
+## Older evidence
+
+`out/prod-gate/film.mp4`
+
+Status:
+
+> previous gate/regression evidence
+
+`out/prod-builder/film.mp4`
+
+Status:
+
+> failed negative regression fixture
+
+Do not overwrite the retained baselines.
+
+Produce new output paths for this phase.
+
+---
+
+# 3. Architecture already accepted
+
+The following are production architecture and should not be casually redesigned.
+
+## Timing authority
+
+ElevenLabs word alignment is authoritative.
+
+Do not replace it with:
+
+- guessed beat timing;
+- ASR-derived timing;
+- music-grid timing;
+- arbitrary scene durations.
+
+Supplied scripts remain verbatim unless explicitly authorized otherwise.
+
+## Structured film grammar
+
+The current film architecture consists of:
+
+1. persistent spine;
+2. stage;
+3. annotations;
+4. presenter + captions.
+
+Keep this architecture.
+
+## Stateful holding
+
+`holdAt` semantics are authoritative:
+
+> silence holds the latest started beat/chapter.
+
+Do not reintroduce final-state fallback behavior.
+
+## QC architecture
+
+Three levels exist:
+
+### Tier 1
+Technical/container QC.
+
+### Tier 2
+Plan/render deterministic conformance.
+
+### Tier 3
+Vision-based visual/art-direction critique.
+
+Principle:
+
+> Deterministic facts belong in tests. Vision models judge visual quality.
+
+## Action Registry v1
+
+Accepted production capability.
+
+Current action vocabulary includes concepts equivalent to:
+
+- traverse;
+- return;
+- transform/state-change.
+
+Action should be selected from the **shape of action**, not topic or chapter name.
+
+Do not restore chapter-name routing.
+
+## Layout authority
+
+`layoutFor` remains macro-placement authority.
+
+Do not return to unrestricted raw-coordinate generation as the primary creative language.
+
+## Renderer
+
+Keep:
+
+- Remotion;
+- React;
+- SVG;
+- existing procedural/bespoke architecture.
+
+Do not introduce another animation framework merely because it exists.
+
+If this phase reveals a concrete limitation the current renderer cannot reasonably express, document that limitation rather than silently migrating frameworks.
+
+---
+
+# 4. Documents to inspect before implementation
+
+Read the current versions of:
+
+- `MASTER_HANDOFF_AI_MOTION_GRAPHICS_STUDIO.md`
+- `references/creative-standard.md`
+- `references/MOTION_STYLE_GUIDE.md`
+- `references/CREATIVE_SYSTEM_HANDOFF.md`
+- `references/PRODUCTION_INTEGRATION_HANDOFF.md`
+- `references/STUDIO_MEMORY.md`
+- Corporate Defector Character Bible
+- current production code under `src/film/`
+- current QC scripts
+- Action Registry implementation
+- Mara props / plan / structure
+- Larkspur cold-script props / plan / structure
+
+Also inspect the actual current baseline renders.
+
+Do not make architectural decisions from documentation alone when rendered evidence exists.
+
+---
+
+# 5. Why this phase exists
+
+The production system is now mechanically much stronger.
+
+It can:
+
+- preserve supplied scripts;
+- generate/use Eric A narration;
+- maintain 100% word alignment;
+- render complete vertical films;
+- hold truthful state across silence;
+- run deterministic QC;
+- run visual critique;
+- express real causal action;
+- process a materially different supplied script without a script-specific renderer.
+
+But visual quality is still limited.
+
+The current films remain:
+
+- strongly card-driven;
+- compositionally repetitive;
+- chapter-isolated;
+- weak in visual continuity;
+- weak in object carry-over;
+- weak in intentional reframing;
+- weak in presenter choreography;
+- weak in whole-film visual authorship.
+
+The system currently decomposes the film well.
+
+It does not yet sufficiently **direct the film as one visual argument**.
+
+---
+
+# 6. Required new capability: FilmDirection
+
+Create a film-level visual-direction artifact/pass.
+
+Name is flexible, but conceptually:
+
+`FilmDirection`
+
+It should be generated from the whole supplied script and structured film context before chapter-level visual decisions are finalized.
+
+This artifact must be:
+
+- film-specific;
+- visual;
+- durable;
+- inspectable;
+- diffable;
+- usable by downstream stage/beat systems.
+
+It must not be merely another style prompt.
+
+A valid film-direction artifact should cause later chapters to make decisions because of earlier chapters.
+
+---
+
+# 7. FilmDirection responsibilities
+
+At minimum it should reason about:
+
+## Visual through-line
+
+What visual idea anchors the entire film?
+
+Examples:
+
+- one persistent worked example;
+- a recurring object;
+- a system progressively assembling;
+- one environment changing state;
+- one metaphor carrying through multiple concepts.
+
+Do not force one device universally.
+
+Choose based on the actual film.
+
+## Persistent object identity
+
+Identify which objects should survive across chapters.
+
+Examples:
+
+- customer record;
+- order;
+- inbox;
+- agent;
+- workflow;
+- card;
+- case;
+- business;
+- status;
+- metric.
+
+Objects need stable identities where continuity matters.
+
+A later chapter should be able to refer to:
+
+> the same object from chapter 1, now changed.
+
+## Boundary intent
+
+For each chapter transition, decide explicitly:
+
+- `carry`
+- `transform`
+- `reframe`
+- `reset`
+
+Avoid accidental mount/unmount behavior that feels like unrelated scenes.
+
+## Composition rhythm
+
+Plan purposeful variation across the film.
+
+Possible modes might include:
+
+- focused mechanism;
+- full-frame explanation;
+- presenter-led;
+- presenter-absent;
+- sparse;
+- dense;
+- zoomed detail;
+- pulled-back system view;
+- comparison;
+- recap.
+
+Do not turn these into a rigid template menu.
+
+They are directional intents.
+
+## Action opportunities
+
+Determine where narration describes something happening rather than merely something existing.
+
+When appropriate, route those moments toward the Action Registry.
+
+Do not force action into every chapter.
+
+## Presenter blocking
+
+At film level decide when Corporate Defector should:
+
+- lead;
+- beside;
+- away.
+
+Also reason about:
+
+- presenter prominence;
+- stage ownership;
+- when presenter should disappear;
+- whether presenter directs attention toward a specific visual referent.
+
+Do not build a new pose library in this phase unless explicitly required.
+
+## Recap behavior
+
+Recaps should retrieve familiar objects/states rather than simply display a new summary list.
+
+## Worked-example state ledger
+
+Maintain cross-film truth for the recurring example.
+
+A later chapter cannot silently reset the example to an earlier state.
+
+State transitions must remain narratively truthful.
+
+## Metaphor economy
+
+If a visual metaphor is established, reuse it intentionally rather than inventing unrelated metaphors every chapter.
+
+---
+
+# 8. Required fix: cue-aware internal state for library components
+
+This is a mandatory acceptance requirement.
+
+The Larkspur cold film exposed a real capability gap.
+
+Around 75–80 seconds, the Apply stage displayed later board state before narration had reached that action.
+
+This was not a `holdAt` failure.
+
+It was component-internal state progressing because the outer component had mounted.
+
+Generalize the solution.
+
+Any stateful component selected by a film—such as:
+
+- board;
+- Kanban;
+- tab;
+- record;
+- notification;
+- status panel;
+- checklist;
+- process;
+- comparison state;
+- other mutable library component
+
+must expose internal state through phrase-aligned cues or equivalent authoritative timing.
+
+Rule:
+
+> A later card, status, result, tab, or completion state cannot appear merely because the outer component is already mounted.
+
+Use actual alignment authority.
+
+Do not patch Larkspur by chapter name.
+
+---
+
+# 9. Required fix: presenter-bound conformance
+
+This is also mandatory.
+
+Current films still allow the Corporate Defector's feet to enter the lower protected platform region.
+
+Tier 2 must check presenter bounds against the active safe-area profile.
+
+Any intentional overlap must be explicit.
+
+Conceptually:
+
+- `allowed`
+- `not allowed`
+- or a shot-level override with stated intent.
+
+The presenter must not silently violate the safe profile.
+
+Do not treat exact current safe-zone pixel values as universal laws.
+
+Profiles remain configuration.
+
+---
+
+# 10. Required fix: Tier 3 clipping and crowding
+
+This phase must materially reduce obvious phone-scale clipping/crowding.
+
+Known examples include thin or cramped UI treatments such as Mara's `NEW EMAIL`.
+
+Do not solve every visual defect with smaller type.
+
+Prefer:
+
+- reflow;
+- resizing the container;
+- simplifying the information;
+- changing composition;
+- revealing information over time;
+- choosing a different construction method.
+
+The visual critic should flag meaningful phone-scale clipping/crowding.
+
+Targeted repair should be able to respond.
+
+---
+
+# 11. Required creative improvement: reduce card-driven repetition
+
+This is a core acceptance condition.
+
+A successful `FilmDirection` JSON/file alone does not constitute success.
+
+The resulting film must visibly become less like:
+
+> card → card → card → new chapter → card → card
+
+and more like:
+
+> one visual explanation evolving through intentional states.
+
+Use mechanisms such as:
+
+- object persistence;
+- state progression;
+- causal action;
+- intentional camera/reframe behavior;
+- stage takeover;
+- presenter disappearance;
+- scale change;
+- composition transformation;
+- cross-chapter object reuse;
+- diagram-to-mechanism evolution;
+- recap retrieval.
+
+Do not add motion simply for energy.
+
+Motion must explain.
+
+---
+
+# 12. Pass ordering
+
+Inspect the current ordering of:
+
+- structure;
+- beats;
+- stages;
+- direction.
+
+The previous architecture historically allowed beat logic to be generated before the actual visual object was sufficiently concrete.
+
+If FilmDirection or stage selection requires ordering changes, make the smallest justified change necessary so downstream passes know what visual object/state they are coordinating.
+
+Do not rewrite the production architecture wholesale.
+
+The direction artifact should influence later decisions through actual typed data, not repeated prose injection.
+
+---
+
+# 13. Renderer-channel constraint
+
+FilmDirection may only request things the renderer can currently express or capabilities implemented during this bounded phase.
+
+Do not create aspirational direction fields with no execution path.
+
+For every FilmDirection concept, identify:
+
+> Which renderer channel consumes this?
+
+If a useful direction cannot yet be expressed:
+
+- either implement the smallest reusable capability;
+- or mark the direction unsupported and report it.
+
+Do not silently discard it.
+
+---
+
+# 14. Continuity implementation
+
+Introduce only the minimum typed continuity data necessary.
+
+Potential concepts include:
+
+- persistent object IDs;
+- chapter entry state;
+- chapter exit state;
+- transition intent;
+- carry-over objects;
+- transformed objects;
+- visual focus;
+- composition mode;
+- presenter mode;
+- recap references.
+
+Exact schema is your design decision.
+
+Avoid overbuilding.
+
+---
+
+# 15. Visual continuity between chapters
+
+Chapter transitions should stop feeling like isolated visual islands.
+
+At each boundary determine intentionally whether the film should:
+
+### Carry
+Keep the same object/composition and continue changing it.
+
+### Transform
+The existing visual becomes the next concept.
+
+### Reframe
+The camera/composition changes to reveal a larger/smaller relationship.
+
+### Reset
+A genuinely new scene begins because continuity would be misleading or cluttered.
+
+Reset is legitimate.
+
+Accidental reset is not.
+
+---
+
+# 16. Reference behavior
+
+Continue using:
+
+`references/MOTION_STYLE_GUIDE.md`
+
+G01–G13 remain authoritative.
+
+Particularly relevant:
+
+- G01 visible explanatory action;
+- G02 object persistence/state progression;
+- G03 attention hierarchy;
+- G04 teaching scale;
+- G06 causal motion;
+- G07 intentional reframing;
+- G10 presenter behavior;
+- G11 recap retrieval;
+- G13 state truth.
+
+Do not replace these with arbitrary new creative rules.
+
+---
+
+# 17. Corporate Defector
+
+Character identity remains locked by the Character Bible.
+
+Do not redesign the character.
+
+Current production assets remain valid.
+
+This phase concerns:
+
+- blocking;
+- prominence;
+- disappearance;
+- relationship to the stage;
+- safe placement.
+
+Not identity redesign.
+
+---
+
+# 18. Explicitly do not reopen
+
+Do not reopen:
+
+- Eric A voice choice;
+- ElevenLabs Multilingual v2;
+- narration pipeline;
+- supplied-script preservation;
+- word alignment authority;
+- Remotion;
+- Action Registry v1;
+- persistent spine;
+- captions;
+- Character Bible;
+- basic structured architecture;
+- layout authority;
+- deterministic gap holding;
+- QC tier separation.
+
+Do not introduce:
+
+- Hyperframes merely because it is popular;
+- Motion Canvas;
+- GSAP migration;
+- music-grid timing;
+- generic AI B-roll;
+- one-shot mega-prompts;
+- a giant append-only studio skill.
+
+If a concrete current-renderer limitation emerges, document it with evidence.
+
+---
+
+# 19. Studio-memory rule
+
+Follow:
+
+`references/STUDIO_MEMORY.md`
+
+Per-film repair does not automatically modify studio memory.
+
+Hard rule:
+
+> A bug never becomes a style rule.
+
+Deterministic lessons should become:
+
+> code + test
+
+where possible.
+
+Creative lessons require evidence before studio-wide promotion.
+
+---
+
+# 20. Implementation strategy
+
+Start with the smallest useful version of FilmDirection that can visibly affect the Mara film.
+
+Do not attempt to solve every creative problem in v1.
+
+A good first implementation should be capable of changing actual downstream decisions such as:
+
+- persistent object selection;
+- chapter transition intent;
+- composition mode;
+- presenter mode;
+- object carry/transform;
+- recap retrieval;
+- action opportunity.
+
+Then render and inspect.
+
+Prefer actual visual evidence over schema elegance.
+
+---
+
+# 21. Comparison target
+
+Compare the new Mara render against:
+
+`out/prod-harden/film.mp4`
+
+at phone scale.
+
+The new render should demonstrate obvious improvement, not merely internal architectural change.
+
+Also preserve the Larkspur cold fixture for regression.
+
+Do not overwrite either baseline.
+
+---
+
+# 22. Acceptance requirements
+
+Continuity & Film Direction v1 does NOT pass merely because the new layer exists.
+
+It must demonstrate rendered improvement.
+
+## Required mechanical fixes
+
+### Cue-aware library state
+PASS only if mutable library components do not expose future state before aligned narration cues.
+
+### Presenter bounds
+PASS only if Tier 2 checks presenter bounds and silent safe-zone violations no longer occur.
+
+### Clipping/crowding
+PASS only if obvious phone-scale clipping/crowding is materially reduced and critic/repair can identify remaining failures.
+
+## Required creative improvement
+
+Compared with `out/prod-harden/film.mp4`, the new Mara render should be materially stronger on:
+
+- G01 visible explanatory action;
+- G02 object persistence;
+- G03 hierarchy;
+- G04 teaching scale;
+- G07 intentional reframing;
+- G10 presenter behavior;
+- G11 recap continuity/retrieval;
+- G13 state truth.
+
+Most importantly:
+
+> The film must feel less like independently mounted chapter cards and more like one directed visual explanation.
+
+## Required architecture
+
+- film-level visual-direction artifact exists;
+- later chapters can change because of earlier chapter decisions;
+- stable object identity can cross chapters;
+- transition intent is typed;
+- renderer actually consumes direction data;
+- no FilmDirection field exists only as decorative metadata.
+
+---
+
+# 23. Evidence required
+
+Return:
+
+1. FilmDirection schema/artifact.
+2. Example FilmDirection output for Mara.
+3. Description of how downstream passes consume it.
+4. Files changed.
+5. Any pass-order changes.
+6. Cue-aware stateful-component implementation.
+7. Presenter-bound Tier 2 implementation.
+8. Clipping/crowding repair changes.
+9. Transition/continuity implementation.
+10. Persistent-object implementation.
+11. Presenter-blocking implementation.
+12. Recap-continuity implementation.
+13. New Mara render path.
+14. Phone-scale before/after evidence.
+15. Tier 1 results.
+16. Tier 2 results.
+17. Tier 3 critic results.
+18. G01–G13 comparison against `out/prod-harden/film.mp4`.
+19. Remaining defects.
+20. Any concrete renderer limitation discovered.
+21. Recommendation whether Continuity & Film Direction v1 passes.
+
+Do not self-authorize the next phase.
+
+Return evidence to Source of Truth for reconciliation.
+
+---
+
+# 24. Success definition
+
+This phase succeeds when the system has moved from:
+
+> reliable structured animation
+
+toward:
+
+> reliable visual direction.
+
+The desired result is not “more animation.”
+
+It is:
+
+> stronger continuity, stronger visual causality, stronger composition, and a film that feels intentionally directed from beginning to end.

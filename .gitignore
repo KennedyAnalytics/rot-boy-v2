@@ -1,0 +1,10 @@
+node_modules
+dist
+out
+public/jobs
+.env
+*.log
+__pycache__/
+*.pyc
+# Duplicate of the unpacked reference videos; over GitHub's 100 MB file limit.
+references/Video references Good.zip

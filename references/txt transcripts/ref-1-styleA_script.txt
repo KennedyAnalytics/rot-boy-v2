@@ -1,0 +1,9 @@
+Rate limiter for an application handling thousands of requests every second.
+
+The idea is simple. A user can call your API to perform some action, but each user is only allowed to make 100 requests per minute. If they go above that limit, the server should reject the extra requests.
+
+The most obvious way to build this is using a counter. For every user, you store three things: their user ID, the number of requests they've made, and the current minute.
+
+Every time that user sends a request, you increase the counter. Once the counter goes above 100, you reject any new requests until the next minute begins.
+
+This is called a fixed window rate limiter. And for simple systems, it can work perfectly fine, but there's a problem.

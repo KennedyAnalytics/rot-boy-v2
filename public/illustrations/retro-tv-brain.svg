@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" fill="none">
+  <g stroke="#1C212B" stroke-linejoin="round" stroke-linecap="round">
+    <!-- antenna -->
+    <path d="M548 300 L612 168" stroke-width="7"/>
+    <path d="M548 300 L668 214" stroke-width="7"/>
+    <circle cx="548" cy="300" r="8" fill="#F4E8D4" stroke-width="6"/>
+
+    <!-- cabinet depth -->
+    <path d="M548 352 L612 308 L612 612 L548 656 Z" fill="#D9C4A4" stroke-width="7"/>
+    <path d="M196 348 L520 348 L584 304 L260 304 Z" fill="#E7D5B8" stroke-width="7"/>
+
+    <!-- front -->
+    <rect x="164" y="324" width="400" height="324" rx="36" fill="#F4E8D4" stroke-width="7"/>
+
+    <!-- feet -->
+    <rect x="228" y="638" width="78" height="30" rx="7" fill="#E7D3B0" stroke-width="7"/>
+    <rect x="438" y="638" width="78" height="30" rx="7" fill="#E7D3B0" stroke-width="7"/>
+
+    <!-- screen -->
+    <rect x="196" y="356" width="252" height="204" rx="22" fill="#C5CBD4" stroke-width="7"/>
+    <g clip-path="url(#screen)">
+      <rect x="220" y="392" width="204" height="12" rx="3" fill="#B0B6BF"/>
+      <rect x="220" y="428" width="204" height="12" rx="3" fill="#EEF1F4"/>
+      <rect x="220" y="464" width="204" height="12" rx="3" fill="#B0B6BF"/>
+      <rect x="220" y="500" width="204" height="12" rx="3" fill="#EEF1F4"/>
+    </g>
+
+    <!-- knobs -->
+    <circle cx="498" cy="404" r="22" fill="#F4E8D4" stroke-width="7"/>
+    <path d="M498 404 L512 392" stroke-width="6"/>
+    <circle cx="498" cy="468" r="22" fill="#F4E8D4" stroke-width="7"/>
+    <path d="M498 468 L486 456" stroke-width="6"/>
+    <rect x="478" y="516" width="40" height="22" rx="6" fill="#1C212B" stroke-width="7"/>
+
+    <!-- brain -->
+    <path id="brain" d="M278 318
+             C232 322 198 284 214 242
+             C188 204 214 150 274 156
+             C300 122 362 116 404 150
+             C448 128 514 164 504 214
+             C540 228 532 278 486 298
+             C498 318 472 348 428 334
+             C396 356 336 348 308 322
+             C292 340 268 334 278 318 Z" fill="#F0B6A6" stroke-width="7"/>
+    <g clip-path="url(#brainClip)" stroke="#C47D72" stroke-width="5" fill="none">
+      <path d="M372 148 C358 188 372 236 348 292"/>
+      <path d="M246 214 C286 198 304 230 286 262"/>
+      <path d="M258 176 C300 166 316 190 300 214"/>
+      <path d="M408 168 C448 156 468 186 446 214"/>
+      <path d="M392 214 C436 204 456 234 430 260"/>
+      <path d="M430 286 C458 278 474 298 456 314"/>
+      <path d="M418 304 C448 300 462 318 444 330"/>
+    </g>
+  </g>
+  <defs>
+    <clipPath id="screen">
+      <rect x="196" y="356" width="252" height="204" rx="22"/>
+    </clipPath>
+    <clipPath id="brainClip">
+      <use href="#brain"/>
+    </clipPath>
+  </defs>
+</svg>

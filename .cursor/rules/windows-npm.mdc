@@ -1,0 +1,14 @@
+---
+description: Run npm and npx without the Windows PowerShell shim
+alwaysApply: true
+---
+
+On Windows, do not invoke `npm` or `npx` directly from PowerShell. PowerShell resolves those names to `npm.ps1` and `npx.ps1`, which fail when script execution is disabled.
+
+Use the project launchers. They call `npm.cmd` / `npx.cmd` and do not change the execution policy.
+
+- `node scripts/npm.mjs <args>`
+- `node scripts/npx.mjs <args>`
+- `node scripts/check-package-bin.mjs` to verify the launcher
+
+On macOS and Linux, `npm` and `npx` are unchanged. Node scripts that spawn a package manager must use `scripts/lib/resolve-bin.mjs`.

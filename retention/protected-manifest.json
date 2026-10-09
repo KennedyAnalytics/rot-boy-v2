@@ -1,0 +1,385 @@
+{
+  "version": 1,
+  "holdIfModifiedWithinHours": 12,
+  "description": "Protected retention manifest for the AI Motion Graphics Studio. Add a future approved baseline as a new protected entry. Cleanup rules do not need to change. Safe cleanup never deletes a path matched here. Aggressive cleanup refuses to run if a protected path sits inside an aggressive target.",
+  "landmarks": [
+    {
+      "path": "out/continuity-v1/mara-v1-production/film.mp4",
+      "role": "Current authoritative Mara baseline and visual-direction reference"
+    },
+    {
+      "path": "out/continuity-v1/larkspur-verified/film.mp4",
+      "role": "Current Larkspur cold-script validation fixture"
+    },
+    {
+      "path": "out/prod-harden/film.mp4",
+      "role": "Before/after and regression baseline"
+    },
+    {
+      "path": "out/prod-cold/film.mp4",
+      "role": "Earlier cold-path regression baseline"
+    },
+    {
+      "path": "out/prod-gate/film.mp4",
+      "role": "Operational baseline after the Render Truth gate"
+    },
+    {
+      "path": "out/prod-builder/film.mp4",
+      "role": "Negative narration-gap fixture"
+    },
+    {
+      "path": "out/prod-supplied/film.mp4",
+      "role": "Earlier static-stage regression baseline"
+    },
+    {
+      "path": "out/continuity-v1/ACCEPTANCE_EVIDENCE.md",
+      "role": "Continuity v1 acceptance evidence"
+    },
+    {
+      "path": "out/motion-v1",
+      "role": "Current Motion Choreography phase output"
+    },
+    {
+      "path": "public/jobs/reuse-mara/voice.mp3",
+      "role": "Mara narration referenced by current and continuity props"
+    },
+    {
+      "path": "public/jobs/voice-1791500948631/voice.mp3",
+      "role": "Larkspur and prod-cold narration"
+    },
+    {
+      "path": "public/jobs/voice-1791500948631/words.json",
+      "role": "Larkspur and prod-cold word alignment"
+    },
+    {
+      "path": "public/jobs/voice-1791477106811/voice.mp3",
+      "role": "prod-supplied narration"
+    },
+    {
+      "path": "public/jobs/voice-1791477106811/words.json",
+      "role": "prod-supplied word alignment"
+    },
+    {
+      "path": "public/character/corporate-defector-presenting.webm",
+      "role": "Corporate Defector lead asset"
+    },
+    {
+      "path": "public/character/corporate-defector-tablet-idle.webm",
+      "role": "Corporate Defector beside asset"
+    },
+    {
+      "path": "references/my-character/Corporate_Defector_Character_Bible_v1.md",
+      "role": "Character identity source"
+    },
+    {
+      "path": "references/STUDIO_MEMORY.md",
+      "role": "Studio Memory"
+    },
+    {
+      "path": "references/MASTER_HANDOFF_AI_MOTION_GRAPHICS_STUDIO.md",
+      "role": "Source-of-truth handoff"
+    }
+  ],
+  "protected": [
+    {
+      "path": "out/motion-v1",
+      "category": "active-phase",
+      "reason": "Motion Choreography & Renderer Expressiveness v1 is in progress. Do not delete, move, or rewrite this tree from the cleanup tool."
+    },
+    {
+      "path": "out/continuity-v1/mara-v1-production",
+      "category": "authoritative",
+      "reason": "Current operational Mara baseline, film, props, alignment, phone evidence, and Tier 1–3 critiques."
+    },
+    {
+      "path": "out/continuity-v1/larkspur-verified",
+      "category": "authoritative",
+      "reason": "Current cold-script validation fixture, including the 75–80s frame check."
+    },
+    {
+      "path": "out/continuity-v1",
+      "category": "acceptance",
+      "reason": "Continuity v1 acceptance evidence and retained loop history. Rejected candidates stay; they are not final acceptance, and they are not disposable."
+    },
+    {
+      "path": "out/prod-harden",
+      "category": "regression",
+      "reason": "Before/after and regression baseline named by the motion handoff."
+    },
+    {
+      "path": "out/prod-cold",
+      "category": "regression",
+      "reason": "Earlier cold-path regression baseline named by the motion handoff."
+    },
+    {
+      "path": "out/prod-gate",
+      "category": "regression",
+      "reason": "Operational baseline after the Render Truth gate. Master handoff and production integration handoff."
+    },
+    {
+      "path": "out/prod-builder",
+      "category": "regression",
+      "reason": "Negative gap-leak fixture, phone stills, plan, and timing. Explicitly retained."
+    },
+    {
+      "path": "out/prod-supplied",
+      "category": "regression",
+      "reason": "Earlier static-stage baseline. Production integration handoff says this regression baseline is not deleted."
+    },
+    {
+      "path": "out/structure",
+      "category": "referenced-rd",
+      "reason": "Silent structured comparison render cited by the creative-system and production handoffs."
+    },
+    {
+      "path": "out/f1",
+      "category": "referenced-rd",
+      "reason": "Silent structured R&D render cited as useful comparison."
+    },
+    {
+      "path": "out/f2",
+      "category": "referenced-rd",
+      "reason": "Silent structured R&D render cited by the creative-system handoff."
+    },
+    {
+      "path": "out/r1",
+      "category": "referenced-rd",
+      "reason": "Silent structured R&D render cited by the production handoff."
+    },
+    {
+      "path": "out/r2",
+      "category": "referenced-rd",
+      "reason": "Silent structured R&D render cited by the production handoff."
+    },
+    {
+      "path": "out/r3",
+      "category": "referenced-rd",
+      "reason": "Silent structured R&D render cited by the creative-system handoff."
+    },
+    {
+      "path": "out/s-new",
+      "category": "referenced-rd",
+      "reason": "Silent structured R&D render in the s-* comparison set."
+    },
+    {
+      "path": "out/s-stab",
+      "category": "referenced-rd",
+      "reason": "Silent structured R&D render in the s-* comparison set."
+    },
+    {
+      "path": "out/s-inv",
+      "category": "referenced-rd",
+      "reason": "Silent structured R&D render in the s-* comparison set."
+    },
+    {
+      "path": "out/unseen",
+      "category": "referenced-rd",
+      "reason": "Print-shop Film render cited by the legacy and production handoffs."
+    },
+    {
+      "path": "out/proof",
+      "category": "referenced-rd",
+      "reason": "Hand-authored composition proof cited by the creative-system handoff."
+    },
+    {
+      "path": "public/jobs/structure-1791488666516",
+      "category": "historical-trace",
+      "reason": "Direction trace cited by the production handoff and prod-builder notes."
+    },
+    {
+      "path": "public/jobs/structure-1791476662824",
+      "category": "historical-trace",
+      "reason": "Direction trace cited by the production handoff and prod-supplied notes."
+    },
+    {
+      "path": "public/jobs/direct-1791442398972",
+      "category": "historical-trace",
+      "reason": "Print-shop direction trace cited by the legacy handoff."
+    },
+    {
+      "glob": "public/jobs/voice-*",
+      "category": "narration",
+      "reason": "Narration recordings and word alignment. Accepted films point at specific jobs; other voice jobs are the same trace class named in the production handoff."
+    },
+    {
+      "glob": "public/jobs/reuse-*",
+      "category": "narration",
+      "reason": "Reused narration. Current Mara props point at jobs/reuse-mara/voice.mp3."
+    },
+    {
+      "glob": "public/jobs/structure-*",
+      "category": "historical-trace",
+      "reason": "Model structure traces. The production handoff names this class, and two runs are cited exactly."
+    },
+    {
+      "glob": "public/jobs/direct-*",
+      "category": "historical-trace",
+      "reason": "Historical direction traces named by the legacy handoff."
+    },
+    {
+      "path": "public/jobs/board-proof",
+      "category": "historical-trace",
+      "reason": "Legacy board-proof trace named by the legacy handoff."
+    },
+    {
+      "path": "public/character",
+      "category": "character",
+      "reason": "Runtime Corporate Defector WEBM and PNG assets."
+    },
+    {
+      "path": "public/sfx",
+      "category": "source",
+      "reason": "Studio sound assets."
+    },
+    {
+      "path": "public/illustrations",
+      "category": "source",
+      "reason": "Studio illustration assets."
+    },
+    {
+      "path": "references",
+      "category": "reference",
+      "reason": "Handoffs, Studio Memory, creative standard, motion style guide, video references, failed-video fixtures, and the Character Bible. Includes Video references Good.zip, which the style guide cites by name."
+    },
+    {
+      "path": "src",
+      "category": "source",
+      "reason": "Studio source."
+    },
+    {
+      "path": "server",
+      "category": "source",
+      "reason": "Studio server."
+    },
+    {
+      "path": "studio",
+      "category": "source",
+      "reason": "Studio UI."
+    },
+    {
+      "path": "scripts",
+      "category": "source",
+      "reason": "Production, QC, and retention scripts."
+    },
+    {
+      "path": ".cursor",
+      "category": "config",
+      "reason": "Workspace rules."
+    },
+    {
+      "path": "retention",
+      "category": "config",
+      "reason": "This manifest and the dry-run reports. Cleanup must not delete its own policy."
+    }
+  ],
+  "alwaysKeepFiles": [
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json",
+    "remotion.config.ts",
+    "vite.config.ts",
+    "remotion-ui.json",
+    ".gitignore",
+    ".env",
+    ".env.example",
+    "STUDIO_ANALYSIS_CLAUDE_2026-10-08.txt"
+  ],
+  "safe": {
+    "duplicateStudioRenders": {
+      "id": "duplicate-studio-render",
+      "parent": "public/jobs",
+      "namePrefix": "render-",
+      "reason": "A file inside public/jobs/render-* is disposable only when its SHA-256 matches a file that already lives on a protected path. Unique renders stay."
+    },
+    "temporaryFiles": [
+      {
+        "path": "out/remotionui-install.log",
+        "reason": "Install log. The vendored library and package manifest remain."
+      },
+      {
+        "path": "out/tsc.txt",
+        "reason": "Typecheck log. Re-run tsc to regenerate."
+      }
+    ]
+  },
+  "aggressive": [
+    {
+      "id": "webpack-cache",
+      "path": "node_modules/.cache",
+      "category": "render-cache",
+      "regenerate": "The next Remotion bundle() or webpack build rebuilds this directory. Stop any in-progress render first. No package reinstall is required for this folder alone."
+    },
+    {
+      "id": "remotion-browser",
+      "path": "node_modules/.remotion",
+      "category": "render-cache",
+      "regenerate": "Remotion downloads Chrome headless shell again on the next render. That requires network access. Do not remove it during an active render."
+    },
+    {
+      "id": "vite-cache",
+      "path": "node_modules/.vite",
+      "category": "render-cache",
+      "regenerate": "The next Vite dev or build prebundles dependencies again. No package reinstall is required for this folder alone."
+    },
+    {
+      "id": "node-modules",
+      "path": "node_modules",
+      "category": "dependency",
+      "regenerate": "Reinstall with: node scripts/npm.mjs ci   This also removes the webpack cache, the Remotion browser, and the Vite cache. Do not run it while another agent is installing, typechecking, or rendering."
+    }
+  ],
+  "reviewBeforeDeletion": [
+    {
+      "path": "out/continuity-v1/mara-verified",
+      "why": "Superseded Mara candidate. ACCEPTANCE_EVIDENCE says rejected candidates remain as loop history."
+    },
+    {
+      "path": "out/continuity-v1/mara-delivery-final",
+      "why": "Earlier delivery candidate retained as loop history, not the current baseline."
+    },
+    {
+      "path": "out/continuity-v1/mara-production",
+      "why": "Earlier production candidate retained as loop history."
+    },
+    {
+      "path": "out/continuity-v1/larkspur",
+      "why": "Earlier Larkspur candidate. The current fixture is larkspur-verified."
+    },
+    {
+      "path": "out/continuity-v1/larkspur-delivery",
+      "why": "Earlier Larkspur delivery candidate retained as loop history."
+    },
+    {
+      "path": "out/continuity-v1/larkspur-final",
+      "why": "Earlier Larkspur candidate retained as loop history."
+    },
+    {
+      "path": "out/continuity-v1/mara-baseline-critic",
+      "why": "Baseline critique frames cited by the acceptance narrative."
+    },
+    {
+      "path": "out/continuity-v1/real-critic",
+      "why": "Failed real-provider critique retained as loop history."
+    },
+    {
+      "path": "out/structure",
+      "why": "Referenced comparison film. Not production, and not approved for automatic deletion."
+    },
+    {
+      "path": "out/f2",
+      "why": "Referenced comparison film."
+    },
+    {
+      "path": "references/Video references Good.zip",
+      "why": "Large archive. The style guide cites the zip by name, so the extracted folder does not make the zip disposable."
+    },
+    {
+      "path": "out/diagnosis",
+      "why": "Comparison stills. Not named by the current source-of-truth docs. Kept until someone reviews them."
+    },
+    {
+      "path": "out/floor",
+      "why": "Silent still set. Not named by the current source-of-truth docs. Kept until someone reviews them."
+    }
+  ]
+}

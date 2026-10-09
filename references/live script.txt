@@ -1,0 +1,295 @@
+If I had 90 days to make real money with AI, I would not build an app.
+
+I would build one machine that makes a business money
+
+and sell that machine over and over again.
+
+Here’s exactly how I’d do it.
+
+Step one: find money that is already leaking.
+
+Do not start with AI.
+
+Start with a business problem.
+
+For this example, let’s use a roofing company.
+
+They spend five thousand dollars on ads.
+
+A homeowner clicks one.
+
+They fill out a quote form.
+
+Name.
+
+Phone number.
+
+Address.
+
+“I think my roof is leaking.”
+
+And then...
+
+nothing.
+
+The lead sits in an inbox for four hours.
+
+By the time somebody calls them back, another roofer already booked the inspection.
+
+That company did not have a lead problem.
+
+They had a follow-up problem.
+
+And that is exactly the kind of problem I want.
+
+Because fixing it has a dollar value.
+
+Step two: turn the problem into an offer.
+
+Do not sell:
+
+“AI automation.”
+
+The business owner does not care.
+
+Sell this:
+
+“I install a system that responds to every new lead immediately, follows up automatically, and helps turn more of the leads you already paid for into booked appointments.”
+
+Now the value is obvious.
+
+Step three: build the actual machine.
+
+A lead comes in.
+
+The system creates a record.
+
+AI reads the message.
+
+Then it classifies what the person wants.
+
+New quote.
+
+Pricing question.
+
+Scheduling.
+
+Existing customer.
+
+Not interested.
+
+Ready to book.
+
+Now we have state.
+
+If it is a new quote—
+
+send the right response.
+
+If they ask about pricing—
+
+answer using the company’s actual rules.
+
+If the question needs a human—
+
+route it to a human.
+
+If they do not reply—
+
+follow up later.
+
+If they say stop—
+
+stop.
+
+And if they are ready to book—
+
+send the calendar.
+
+They pick a time.
+
+The CRM moves them from:
+
+New lead
+
+to:
+
+Appointment booked.
+
+The follow-up sequence shuts off.
+
+And the owner gets a message:
+
+New inspection booked.
+
+That is the product.
+
+Not a chatbot.
+
+Not a demo.
+
+A machine that takes something the business is already paying for—
+
+a lead—
+
+and moves it closer to money.
+
+Step four: make it reliable before you sell it.
+
+Open a spreadsheet.
+
+Create twenty fake leads.
+
+Give each one a different situation.
+
+One wants a quote.
+
+One asks a weird question.
+
+One gives the wrong phone number.
+
+One says they already hired someone.
+
+One wants an appointment tomorrow.
+
+One keeps changing their mind.
+
+Run all twenty through the system.
+
+Watch what happens.
+
+Where does it break?
+
+Where does AI make an assumption?
+
+Where does it need a human?
+
+Fix those cases.
+
+Run them again.
+
+You are not trying to make the AI look impressive.
+
+You are trying to make the service dependable.
+
+That difference matters.
+
+Step five: pick one niche and find 100 businesses.
+
+Do not target every small business in America.
+
+Pick one.
+
+Roofers.
+
+Then find 100 roofing companies already running ads.
+
+Why?
+
+Because they are already spending money to create the thing your system improves.
+
+You are not convincing them leads matter.
+
+They already know.
+
+Now your outreach becomes simple:
+
+“You’re already paying for leads.
+
+I built a system that follows up with the ones your team misses and tries to turn them into booked inspections.
+
+If I showed you how it would work using your business, would you want to see it?”
+
+You do not need 100 yeses.
+
+You need a few calls.
+
+Then one customer.
+
+**Step six: let client number one pay for the machine.**
+
+Maybe they pay $1,500 to install it.
+
+Then $500 a month to keep it running.
+
+The exact number is not the lesson.
+
+The lesson is what happens next.
+
+Client number two comes in.
+
+Do you rebuild everything?
+
+No.
+
+The intake already exists.
+
+The classification already exists.
+
+The follow-up engine already exists.
+
+The booking logic already exists.
+
+You change:
+
+their services,
+
+their rules,
+
+their calendar,
+
+their CRM,
+
+their brand voice.
+
+Then you run the same machine again.
+
+Client three.
+
+Client four.
+
+Client five.
+
+Now the economics change.
+
+The first customer helped pay you to build the system.
+
+Every customer after that is paying you to reuse infrastructure you already own.
+
+That is leverage.
+
+Step seven: use the 90 days correctly.
+
+Month one:
+
+Build one service and make it reliable.
+
+Month two:
+
+Sell that one service until people pay you for it.
+
+Month three:
+
+Standardize onboarding, automate more of delivery, and stack customers onto the same infrastructure.
+
+That is it.
+
+The mistake would be spending those 90 days learning twenty AI tools.
+
+You do not need twenty tools.
+
+You need one expensive problem—
+
+one clear offer—
+
+one reliable machine—
+
+and enough repetition to get good at selling and delivering it.
+
+That is how I would use AI to make real money in the next 90 days.
+
+Not by trying to predict the future.
+
+By finding money that is already leaking—
+
+and building a machine that catches it.

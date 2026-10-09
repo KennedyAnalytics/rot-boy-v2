@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Motion studio architecture review</title>
+<style>
+  :root { color-scheme: light; }
+  body { font: 16px/1.5 Georgia, "Iowan Old Style", serif; max-width: 880px; margin: 2.5rem auto; padding: 0 1.25rem 4rem; color: #1c1c1c; background: #fff; }
+  h1 { font: 600 1.8rem/1.2 system-ui, sans-serif; margin: 0 0 .4rem; }
+  h2 { font: 600 1.25rem/1.3 system-ui, sans-serif; margin: 2.2rem 0 .6rem; border-top: 1px solid #ddd; padding-top: 1.2rem; }
+  h3 { font: 600 1.05rem/1.3 system-ui, sans-serif; margin: 1.4rem 0 .4rem; }
+  p, li { margin: .4rem 0; }
+  .meta { color: #444; font: 0.95rem/1.45 system-ui, sans-serif; }
+  .verdict { background: #f6f1e7; border-left: 4px solid #8a5a12; padding: .8rem 1rem; margin: 1.2rem 0; }
+  table { border-collapse: collapse; width: 100%; margin: .8rem 0 1.2rem; font: 0.88rem/1.35 system-ui, sans-serif; }
+  th, td { border-bottom: 1px solid #e4e4e4; text-align: left; vertical-align: top; padding: .4rem .5rem; }
+  th { font-weight: 650; border-bottom-color: #bbb; }
+  code, pre { font-family: ui-monospace, Consolas, monospace; font-size: 0.88em; }
+  pre { background: #f5f5f5; padding: .8rem 1rem; overflow-x: auto; }
+  ul { padding-left: 1.2rem; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; margin: 1rem 0; }
+  .stat { border: 1px solid #e4e4e4; padding: .6rem .7rem; }
+  .stat b { display: block; font: 600 1.25rem/1.2 system-ui, sans-serif; }
+  .stat span { font: 0.78rem/1.3 system-ui, sans-serif; color: #444; }
+  @media print {
+    body { margin: 0; max-width: none; }
+    h2 { break-after: avoid; }
+    table, pre, .verdict { break-inside: avoid; }
+  }
+  @media (max-width: 700px) { .stats { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<h1>Motion studio: build, keep, or replace</h1>
+<p class="meta">Independent architecture and economics review. 9 October 2026. Evidence is the repository and <code>out/live-v1/llm-provenance.jsonl</code> (83 calls, last line 2026-10-09 16:40:32 UTC). List prices are OpenAI standard gpt-5.6-sol rates: $4 / $0.40 / $5 / $20 per million input, cached input, cache-write, and output tokens. Reasoning tokens are already inside output tokens. This is not an invoice.</p>
+
+<div class="verdict">
+  <strong>Verdict.</strong> Do not rebuild this studio as the same chain of model calls. Keep the picture system. The film people can see is one frontier plan (<code>FilmDirection</code>) drawn by deterministic Remotion code (<code>DirectedStage</code>, <code>sceneAt</code>, house glyphs). The studio still pays gpt-5.6-sol at high reasoning effort for per-chapter beats and stage picks that <code>StructuredFilm</code> does not draw once <code>plan.direction</code> exists. That is the main economic defect. It is not a multi-agent system, and n8n would not fix it.
+</div>
+
+<div class="stats">
+  <div class="stat"><b>$11.76</b><span>Logged list-price, all 83 calls</span></div>
+  <div class="stat"><b>$8.45</b><span>Morning production window</span></div>
+  <div class="stat"><b>70%</b><span>Of output tokens that are reasoning</span></div>
+  <div class="stat"><b>~11 min</b><span>Full 346 s render, local Remotion</span></div>
+</div>
+
+<h2>1. How a supplied script becomes an MP4</h2>
+<p>Entry point is <code>scripts/produce.ts</code>. It requires the Express studio in <code>server/dev.ts</code> on <code>127.0.0.1:8787</code>. A finished script is refused if it looks like a topic. Markdown emphasis is stripped. The spoken words must survive unchanged. There is no queue, no workflow engine, and no agent-to-agent channel. A person or a coding assistant runs the later scripts by hand.</p>
+<table>
+  <thead><tr><th>Step</th><th>What runs</th><th>Kind</th><th>Drawn in live-v1?</th></tr></thead>
+  <tbody>
+    <tr><td>1. Structure</td><td>One gpt-5.6-sol call, whole script. Spine, example, chapter sentence ranges. Up to 3 attempts.</td><td>Model</td><td>Spine, example chip, chapter clock</td></tr>
+    <tr><td>2. FilmDirection</td><td>One gpt-5.6-sol call. Objects, events, shots, through-line. Up to 3 attempts; failures resend the previous JSON.</td><td>Model</td><td>Yes. This is the picture.</td></tr>
+    <tr><td>3. Beats</td><td>One call per chapter, serial. Pills, cards, stamps, beat grouping.</td><td>Model</td><td>Grouping feeds cue windows. Annotations are not painted.</td></tr>
+    <tr><td>4. Stage</td><td>One call per chapter, serial, optional retry. Picks a founding-toolset component.</td><td>Model</td><td>No. Bypassed when direction exists.</td></tr>
+    <tr><td>5. inspectPlan</td><td>Deterministic checks on pieces and beats. May re-call beats and stage for up to 4 chapters.</td><td>Code, then more model calls</td><td>Repair targets the unused layer.</td></tr>
+    <tr><td>6. Voice</td><td>ElevenLabs Eric A, with-timestamps, <code>eleven_multilingual_v2</code>. SSML breaks, plain-text fallback.</td><td>API</td><td>Yes. The clock.</td></tr>
+    <tr><td>7. timeChapters</td><td>Word alignment becomes beat and chapter times. An estimate clock aborts the run.</td><td>Code</td><td>Yes.</td></tr>
+    <tr><td>8. Render</td><td><code>scripts/render-continuity.ts</code>. Remotion StructuredFilm. If direction is set, only DirectedStage.</td><td>Code</td><td>Yes.</td></tr>
+    <tr><td>9. Tier 1 and 2</td><td>technical-qc, motion audit, caption audit, conformance.</td><td>Code</td><td>Gate, not a picture.</td></tr>
+    <tr><td>10. Tier 3</td><td><code>scripts/review-film.ts</code>. Phone strips, batches of 3, gpt-5.6-sol high vision. Does not patch.</td><td>Model</td><td>Judgment only.</td></tr>
+    <tr><td>11. Repair</td><td><code>scripts/repair-direction.ts</code> applies a hand-written JSON patch.</td><td>Code; author outside runtime</td><td>Yes, after a human or coding agent writes the patch.</td></tr>
+  </tbody>
+</table>
+<pre>Script
+  ├─ Structure call ── Beats + stage calls     (stored on the plan, not painted)
+  └─ FilmDirection ── DirectedStage ── MP4      (this is the picture)</pre>
+
+<h2>2. Runtime reasoning inventory</h2>
+<p>These roles share one provider switch, one model (<code>gpt-5.6-sol</code>), and one effort (<code>high</code>). They differ by system prompt. They never talk to each other. The next role reads a file or a JSON field. Coding tools that edited the repo are outside this list. On this run they wrote the repair after API credits died. That was an accident, not a designed runtime role.</p>
+<table>
+  <thead><tr><th>Role</th><th>Prompt</th><th>Contract</th><th>Frontier?</th></tr></thead>
+  <tbody>
+    <tr><td>Structure director</td><td>structureSystem</td><td>Chapters that partition every sentence</td><td>Useful, not the picture</td></tr>
+    <tr><td>Film director</td><td>directionSystem</td><td>FilmDirection v1: objects, events, shots</td><td>Yes. This is the creative spend.</td></tr>
+    <tr><td>Beat director</td><td>beatSystem</td><td>Annotation slots and beat ranges</td><td>No. Slots are not drawn.</td></tr>
+    <tr><td>Stage picker</td><td>stageSystem</td><td>One component or graphic</td><td>No. Not drawn on this path.</td></tr>
+    <tr><td>Plan critic</td><td>inspectPlan</td><td>Defect list. No model.</td><td>Code</td></tr>
+    <tr><td>Vision critic</td><td>review-film.ts</td><td>Verdicts and defects. No patch.</td><td>Judgment yes. Sol-high on every strip is excess.</td></tr>
+    <tr><td>Narration</td><td>ElevenLabs</td><td>Audio plus word times</td><td>Voice API, not an LLM</td></tr>
+    <tr><td>Repair author</td><td>None in runtime</td><td>direction-repair.json</td><td>Outside the product</td></tr>
+  </tbody>
+</table>
+
+<h2>3. What actually orchestrates</h2>
+<p><code>produce.ts</code> is a straight HTTP sequence: status, <code>/api/direct</code>, <code>/api/voice</code>, local timing, <code>/api/render</code>. <code>directStructure</code> is a for-loop. Render progress is polled every 5 seconds. After that, separate commands render, audit, review, patch, and mix. The OpenAI client polls up to 45 minutes. The Express request timeout is 30 minutes. A long FilmDirection call can outlive the HTTP request that started it. Provenance is appended only when <code>LLM_PROVENANCE_LOG</code> is set, and only for the Responses API.</p>
+
+<h2>4. Logged spend</h2>
+<p>Every completed call is gpt-5.6-sol, effort high. Purpose is only <code>direction</code> or <code>vision</code>. Slice labels are reconstructed from token shape and timestamps. Cache-write tokens partition input and are priced at $5 per million, not added on top of the $4 input rate. Cached hits were about 7% in the morning.</p>
+<table>
+  <thead><tr><th>Block</th><th>List-price USD</th></tr></thead>
+  <tbody>
+    <tr><td>Direction, morning</td><td>$7.28</td></tr>
+    <tr><td>Vision, morning</td><td>$1.17</td></tr>
+    <tr><td>Vision, afternoon</td><td>$3.31</td></tr>
+    <tr><td><strong>All 83 calls</strong></td><td><strong>$11.76</strong></td></tr>
+  </tbody>
+</table>
+<h3>Morning direction</h3>
+<table>
+  <thead><tr><th>Slice</th><th>Calls</th><th>List price</th><th>Inference</th></tr></thead>
+  <tbody>
+    <tr><td>Probe</td><td>2</td><td>about $0</td><td>6 s</td></tr>
+    <tr><td>Natural pass, used</td><td>16</td><td>$3.03</td><td>25.1 min</td></tr>
+    <tr><td>c1 attempts that did not ship</td><td>14</td><td>$2.81</td><td>inside the morning window</td></tr>
+    <tr><td>c1 pass that rendered</td><td>14</td><td>$2.30</td><td>through 08:30 UTC</td></tr>
+  </tbody>
+</table>
+<h3>Output tokens</h3>
+<table>
+  <thead><tr><th>Block</th><th>Reasoning</th><th>Visible output</th></tr></thead>
+  <tbody>
+    <tr><td>Direction</td><td>201k</td><td>92k</td></tr>
+    <tr><td>Vision, morning</td><td>38k</td><td>13k</td></tr>
+    <tr><td>Vision, afternoon</td><td>111k</td><td>38k</td></tr>
+  </tbody>
+</table>
+<p>The log does not explain a $20 invoice by itself. It excludes ElevenLabs, whisper-1, gpt-4o-mini-transcribe, gpt-audio-1.5, calls that died before a provenance line, and any other project on the same credit balance. Exact dollars charged cannot be reconstructed.</p>
+
+<h2>5. Why the morning took hours</h2>
+<table>
+  <thead><tr><th>Interval (UTC)</th><th>What the timestamps show</th><th>Class</th></tr></thead>
+  <tbody>
+    <tr><td>07:16–07:39</td><td>Natural direction. 16 serial Sol calls. FilmDirection itself was 205 s and 22k output tokens.</td><td>Structural</td></tr>
+    <tr><td>07:39–07:50</td><td>Natural render. About 11 minutes for 10,374 frames.</td><td>Structural for this length</td></tr>
+    <tr><td>07:55–08:30</td><td>c1 re-direction. Three FilmDirection attempts resent about 18k input tokens, then a fresh run succeeded.</td><td>Accidental retries plus a full second plan</td></tr>
+    <tr><td>08:30–08:41</td><td>c1 render, again about 11 minutes.</td><td>Structural</td></tr>
+    <tr><td>08:41–09:35</td><td>c2 picture repair, then c3/c4/c5 full re-renders to tune a mix, then a loudness master that copied the video stream.</td><td>Mix re-renders are accidental</td></tr>
+    <tr><td>15:40–16:40</td><td>32 more vision calls plus c6 and c7 renders.</td><td>Repeated review</td></tr>
+  </tbody>
+</table>
+
+<h2>6. Duplication</h2>
+<table>
+  <thead><tr><th>Repeated work</th><th>Evidence</th></tr></thead>
+  <tbody>
+    <tr><td>Four creative passes over one script</td><td>structure, FilmDirection, beats, stage. The last two do not paint when direction is set.</td></tr>
+    <tr><td>Stage prompt carries the entire FilmDirection</td><td>Chapter calls jump from about 8k to about 12–18k input tokens.</td></tr>
+    <tr><td>Failed direction is sent back wholesale</td><td>The previous reply is sliced to 60,000 characters and sent back for a full rewrite.</td></tr>
+    <tr><td>High effort on slot filling</td><td>Beat and stage calls still spend 4k–9k reasoning tokens and 40–140 seconds.</td></tr>
+    <tr><td>Overlapping critic strips</td><td>hook, first 30 seconds, and chapter 1 are three Sol vision calls on one opening.</td></tr>
+    <tr><td>Same film reviewed many times</td><td>Natural (8), c1 (3 completed, 3 credit failures), then 32 afternoon vision calls.</td></tr>
+    <tr><td>Picture encoded to audition a mix</td><td>c3, c4, c5 share the c2 picture and each took a full render.</td></tr>
+    <tr><td>Toolset retrieval on a skipped path</td><td><code>stageFor</code> shortlists materials. <code>DirectedStage</code> draws the six glyph kinds.</td></tr>
+  </tbody>
+</table>
+
+<h2>7. Reasoning that earned its place</h2>
+<p>The natural FilmDirection call (205 seconds, 22,381 output tokens, about $0.50 at list price) is the creative act: a roofing through-line, stable object ids, hypothetical branches, and a sheet that types rows on the spoken phrase. gpt-5.6-sol caught two blocking state-truth conflicts the deterministic audits passed, because those audits check timing, not meaning. A critic that sees frames is worth keeping. Running it at Sol-high, on overlapping strips, four times, is not.</p>
+<table>
+  <thead><tr><th>Keep paying for</th><th>Stop paying Sol-high for</th></tr></thead>
+  <tbody>
+    <tr><td>One whole-film FilmDirection</td><td>Per-chapter beat annotations</td></tr>
+    <tr><td>One independent frame review</td><td>Per-chapter component picking on the directed path</td></tr>
+    <tr><td>A targeted JSON patch when the critic names a real defect</td><td>Re-sending an entire rejected FilmDirection as the next prompt</td></tr>
+    <tr><td>ElevenLabs word alignment as the clock</td><td>A second full direction because the first attempt failed validation</td></tr>
+  </tbody>
+</table>
+
+<h2>8. Storyboard</h2>
+<p>A new storyboard stage would add cost. Structure is already the outline. FilmDirection is already the storyboard, and it already knows the renderer’s limits. It saves money only if beats and stage leave the hot path. Structure and FilmDirection could be one call. Beat boundaries can be one sentence each, in code, because cue timing already scopes a phrase to its sentence.</p>
+
+<h2>9. If starting over</h2>
+<table>
+  <thead><tr><th>Stage</th><th>Role</th><th>Model</th></tr></thead>
+  <tbody>
+    <tr><td>Plan</td><td>One FilmDirection. An optional user storyboard is validated where it already matches the script.</td><td>gpt-5.6-sol, once</td></tr>
+    <tr><td>Narration</td><td>Eric A, timestamps. Starts with the plan.</td><td>ElevenLabs</td></tr>
+    <tr><td>Clock and captions</td><td>Align words, phrase chunks, cue times.</td><td>Code</td></tr>
+    <tr><td>Picture</td><td>DirectedStage. Founding UI only when a shot names a material id.</td><td>Remotion, local</td></tr>
+    <tr><td>Sound</td><td>Event cues plus a bed. Mix in ffmpeg. Copy the video stream.</td><td>Code</td></tr>
+    <tr><td>QC</td><td>Tier 1 and Tier 2.</td><td>Code</td></tr>
+    <tr><td>Review</td><td>Hook stills plus one contact sheet. Defects only.</td><td>gpt-5.6-luna or terra</td></tr>
+    <tr><td>Repair</td><td>JSON patch and one re-render.</td><td>Sol only if the patch needs a creative rewrite</td></tr>
+  </tbody>
+</table>
+<p>Keep a single Node runner. n8n, Temporal, and a queue are a poor fit at two films a day. The failure modes are long reasoning calls and a local renderer.</p>
+
+<h2>10. Commercial stack</h2>
+<table>
+  <thead><tr><th>Job</th><th>Buy this</th><th>Where it loses the product</th></tr></thead>
+  <tbody>
+    <tr><td>Voice</td><td>ElevenLabs</td><td>Does not design the picture</td></tr>
+    <tr><td>Captions</td><td>A caption product</td><td>Phrase-accurate teaching captions are already solved in-repo</td></tr>
+    <tr><td>Picture</td><td>Runway, Kling, Veo, or similar</td><td>Identity, state, and exact on-screen words drift</td></tr>
+    <tr><td>Motion templates</td><td>CapCut, Descript, similar</td><td>Looks assembled</td></tr>
+    <tr><td>Workflow</td><td>n8n or Zapier</td><td>Cannot host this renderer or this validator</td></tr>
+    <tr><td>Labor</td><td>A motion designer</td><td>Two films a day with no timeline edit is a staffing plan</td></tr>
+  </tbody>
+</table>
+<p>Buy the voice and the planner model. Keep the renderer.</p>
+
+<h2>11. Keep and drop</h2>
+<h3>Worth preserving</h3>
+<ul>
+  <li>FilmDirection contract and <code>directionFrom</code> validation.</li>
+  <li><code>sceneAt</code> as the only timing authority for the picture.</li>
+  <li>Persistent glyph identity, hypothetical ghosts, sheet rows typed on cues.</li>
+  <li>Word-aligned captions and the Tier 2 caption audit.</li>
+  <li>Presenter poses driven by shots, using existing art.</li>
+  <li>Deterministic sound cues caused by events, and the measured ducking.</li>
+  <li>Tier 1 technical QC and the motion audit.</li>
+  <li>Script lock: the plan may not rewrite narration.</li>
+</ul>
+<h3>Not earning its keep</h3>
+<ul>
+  <li>The beat and stage model loops on every directed film.</li>
+  <li><code>inspectPlan</code> repairs aimed at pieces the directed renderer ignores.</li>
+  <li>High reasoning effort as a global environment switch.</li>
+  <li>Two visual languages in one plan: glyph direction and library pieces.</li>
+  <li>Hand-run script sequence with no run ledger.</li>
+  <li>Full-frame re-encode to change a mix.</li>
+  <li>The older <code>directFilm</code> windowed director, unused by <code>produce.ts</code>.</li>
+  <li>Coding agents as the fallback critic when credits run out.</li>
+</ul>
+
+<h2>12. Observability today</h2>
+<table>
+  <thead><tr><th>Question</th><th>Today</th></tr></thead>
+  <tbody>
+    <tr><td>Exact film cost</td><td>No dollar field. List price has to be computed outside the app.</td></tr>
+    <tr><td>Cost per stage</td><td>No. Every planner call is purpose=direction.</td></tr>
+    <tr><td>Tokens by model</td><td>Yes, for Responses API calls. One model in this file.</td></tr>
+    <tr><td>Stage duration</td><td>Inference seconds yes. Render duration is a file timestamp, not a logged field.</td></tr>
+    <tr><td>Retry count</td><td>Inferred from repeated input sizes. Not labeled.</td></tr>
+    <tr><td>Repair-loop cost</td><td>Afternoon vision is separable by timestamp. The patch author is unlogged.</td></tr>
+    <tr><td>Narration cost and time</td><td>Not in this log.</td></tr>
+    <tr><td>Which candidate a call belongs to</td><td>No film id on the line.</td></tr>
+  </tbody>
+</table>
+
+<h2>13. Steady-state economics</h2>
+<p>Target: 90–120 second films, about 60 a month. live-v1 was a 346-second research film. Multiplying its $11.76 by 60 describes a research month, not a publishing month. Ranges are estimates. Narration assumes about $0.30–$0.80 a clip. Desktop render time is treated as sunk.</p>
+<table>
+  <thead><tr><th></th><th>As built</th><th>Hybrid</th><th>Commercial video gen</th></tr></thead>
+  <tbody>
+    <tr><td>Model / API per film</td><td>$1.60–$2.80</td><td>$0.45–$1.10</td><td>$0.20–$0.50</td></tr>
+    <tr><td>Narration</td><td>$0.30–$0.80</td><td>$0.30–$0.80</td><td>$0.30–$0.80</td></tr>
+    <tr><td>Video or media API</td><td>$0</td><td>$0</td><td>$8–$18</td></tr>
+    <tr><td>Per film, clean</td><td>about $2.20–$4.00</td><td>about $0.90–$2.00</td><td>about $9–$20, wrong look</td></tr>
+    <tr><td>60 films</td><td>about $130–$240</td><td>about $55–$120</td><td>about $540–$1,200</td></tr>
+  </tbody>
+</table>
+
+<h2>14. Latency for a routine two-minute film</h2>
+<table>
+  <thead><tr><th>Path</th><th>End to end</th><th>Dominant wait</th></tr></thead>
+  <tbody>
+    <tr><td>Current code, 4 chapters, Sol-high, one critic</td><td>about 20–28 min</td><td>Serial chapter calls, then a full render, then vision</td></tr>
+    <tr><td>Hybrid, voice overlapped, one Sol plan, cheaper critic</td><td>about 8–14 min</td><td>FilmDirection reasoning, then about 4–6 min render</td></tr>
+    <tr><td>Hybrid plus a repair</td><td>about 15–22 min</td><td>Second render</td></tr>
+  </tbody>
+</table>
+
+<h2>15. Recommendation</h2>
+<p>Retain the studio. Simplify the production path. Do not replace Remotion with a video generator, and do not wrap the pipeline in n8n.</p>
+<ol>
+  <li>Generate narration while a single FilmDirection call runs.</li>
+  <li>Derive beats in code.</li>
+  <li>Render DirectedStage.</li>
+  <li>Mix audio without re-encoding the picture.</li>
+  <li>Send one cheap vision pass over the hook and a contact sheet, and patch only when that pass names a defect Tier 2 cannot see.</li>
+</ol>
+<p>Expected steady state: about $1–$2 and about 10–15 minutes for a routine two-minute film, about $55–$120 a month at 60 films, before a voice subscription.</p>
+</body>
+</html>

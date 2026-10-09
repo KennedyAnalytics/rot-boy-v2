@@ -1,0 +1,761 @@
+================================================================================
+AI MOTION GRAPHICS STUDIO — ARCHITECTURAL ANALYSIS
+Claude / Opus — 8 October 2026
+================================================================================
+
+Two analyses, in the order they were produced.
+
+  PART ONE   External workflow review: "How to Make Insane Motion Graphics
+             With Opus 5.5" (16:40 director's-brief slide).
+             STATUS: already reconciled into MASTER_HANDOFF section 0.
+             Retained here for provenance and reasoning.
+
+  PART TWO   External workflow review: "I Fully Automated My Video Editing
+             Using Claude Code" and "Opus 5.5 Just Changed Video Editing
+             Forever".
+             STATUS: current. This is the live set of recommendations.
+
+Analysis only. No code was written and no project file was modified to
+produce either part.
+
+Evidence base: the four Source-of-Truth documents as updated 2026-10-08
+17:56, creative-standard.md, the Corporate Defector Character Bible, the
+working checkout (including in-flight gate work: src/film/hold.ts,
+src/film/tools-action.tsx, scripts/gap-regression.ts,
+scripts/inspect-render.ts, out/prod-gate/), and both transcripts in full.
+
+
+################################################################################
+#  PART TWO — CURRENT RECOMMENDATIONS                                          #
+#  (the two video-editing-automation transcripts)                              #
+################################################################################
+
+
+================================================================================
+1. EXECUTIVE DIAGNOSIS
+================================================================================
+
+These two workflows are a DIFFERENT PRODUCT than ours.
+
+Both are assembly-line editing of existing footage: record a human talking,
+transcribe it, cut mistakes, overlay titles and B-roll, score it, export.
+Our system generates a designed film from a script. There is no footage, no
+cuts to find, no dead air to remove. Roughly 60% of what these transcripts
+contain has no referent in our pipeline.
+
+They are worth reading because they are strong on exactly the three things
+our architecture is weakest on, and all three are INFRASTRUCTURE, NOT
+CREATIVITY:
+
+  (1) THE FINISHER IS A NAMED JOB.
+      FFmpeg checks black screens and sync before the human ever sees the
+      video. Our server/render.ts (lines 26-42) renders and reports
+      progress. There is no post-render validation of any kind -- not
+      codec, not duration, not audio presence, not black frames. The Mara
+      film reached independent review with 20 state-leak defects in it and
+      nothing in the pipeline could have objected.
+
+  (2) FEEDBACK HAS A DESTINATION.
+      "When you give it feedback, tell it to save what it's learned to the
+      skill itself." Our studio memory is far better DESIGNED than a
+      1,400-line append-only file, but it has no defined producer, no
+      provenance on most entries, and no expiry.
+
+      Proof inside our own repo: MASTER_HANDOFF section 0 promotes composed
+      stages and the bespoke React/SVG path into production; section 12
+      (lines 617-620) still asserts "no multi-component constructed stage
+      yet / no bespoke React/SVG scene path yet". The file resolves this
+      with a prose disclaimer at line 128. An agent that reads section 12
+      without section 0 acts on a false constraint.
+
+      OUR SOURCE OF TRUTH IS CURRENTLY SELF-CONTRADICTING, AND THE ONLY
+      GUARD IS THAT A HUMAN REMEMBERS TO READ THE HEADER.
+
+  (3) THE AGENT VERIFIES ITS OWN OUTPUT BEFORE HANDING IT OVER.
+      Transcript 2 calls this "probably the most important one."
+
+Point (3) cuts in our favour. The currently approved RENDER TRUTH & VISUAL
+ACTION GATE is already the correct response to the strongest idea in both
+transcripts. inspect-render.ts and gap-regression.ts are precisely that
+verification loop. The transcripts VALIDATE the active phase rather than
+redirecting it. No architectural blocker was found. Nothing here supersedes
+the gate.
+
+CORRECTION TO A COMMON READING: the seven "roles" in transcript 1 are seven
+TOOLS, not seven agents. One model coordinates all of them. The transcript
+does not argue for multi-agent orchestration, and nothing in it is evidence
+that we need more agents.
+
+
+================================================================================
+2. INFRASTRUCTURE COMPARISON
+================================================================================
+
+Classification key:
+  A = already solved better in our studio
+  B = already present, needs hardening
+  C = genuinely useful missing infrastructure
+  D = potential future capability, not needed yet
+  E = not appropriate for our studio
+
+--------------------------------------------------------------------------------
+[A] Claude Code as coordinator
+    Ours: directStructure(), scripts/produce.ts
+    Gap:  none
+
+[A] Transcriber (Parakeet / Whisper) for cue timing
+    Ours: ElevenLabs word alignment, 100% token match
+    Gap:  none. Ours is ground truth, not ASR inference.
+
+[A] Beat planning before code
+    Ours: structureSystem + beatSystem, word-aligned
+    Gap:  none. Ours is stronger -- coverage is a hard failure.
+
+[A] Reference -> analyze -> reusable skill
+    Ours: MOTION_STYLE_GUIDE.md from 10 films, P1-P6 / C1-C5 evidence IDs
+    Gap:  documentation is better; EXECUTABLE layer is absent  -> also C
+
+[A/C] Animator (Hyperframes writes HTML, renders video)
+    Ours: stage pass + RemotionUI (135 components) + 7 graphics + bespoke SVG
+    Gap:  substrate is sufficient (A); VERBS are missing (C)
+
+[B] Verification loop (agent watches its own output)
+    Ours: inspect-render.ts, gap-regression.ts -- in flight
+    Gap:  being built now; keep going
+
+[B] Persistent skill, appended on feedback
+    Ours: 5 governed docs + styleRules.ts + code constraints
+    Gap:  memory design better; PROMOTION PROCESS absent; already carrying
+          stale rules
+
+[B] Pluggable construction methods
+    Ours: FilmPiece.source (library / procedural / bespoke)
+    Gap:  sound abstraction, but `bespoke` maps to exactly one component;
+          new stages require renderer edits
+
+[C] Finisher / FFmpeg technical QC
+    Ours: nothing post-render
+    Gap:  real, cheap, entirely absent
+
+[C] "Save it to the skill" reflex
+    Ours: manual doc edits by whichever agent writes the handoff
+    Gap:  no governance, no threshold, no provenance
+
+[D] Researcher with a browser (screenshots, X posts, papers)
+    Ours: none
+    Gap:  real capability gap, near-zero demand in this format
+
+[D] Sound designer with its own style memory
+    Ours: sfx/tick.wav at volume 0.08
+    Gap:  real; gets cheaper the longer we wait
+
+[D] Generated images / video assets
+    Ours: none; illustrationGap flagged and ignored since the first run
+    Gap:  real (E4); deliberately deferred
+
+[D] Unattended overnight operation
+    Ours: produce.ts CLI, REUSE_PROPS
+    Gap:  blocked by the absence of a pass/fail gate, not by automation
+
+[E] Hyperframes as animation engine
+    Ours: Remotion
+    Gap:  duplicates what we have; breaks the narration clock
+
+[E] Motion Canvas / GSAP
+    Ours: Remotion interpolate / spring
+    Gap:  no concrete limitation solved
+
+[E] Screen editor (Tella MCP)
+    Ours: none
+    Gap:  no screen recording exists in this format
+
+[E] 120 BPM music-synced motion
+    Ours: word alignment is the timing authority
+    Gap:  directly conflicts
+
+[E] One-shot mega-prompt
+    Ours: staged, typed, individually repairable passes
+    Gap:  doesn't compose; cannot be partially repaired
+
+[E] Raster AI B-roll as a visual layer
+    Ours: flat paper / ink / coral house identity
+    Gap:  would destroy identity; cannot be beat-gated
+--------------------------------------------------------------------------------
+
+
+================================================================================
+3. THE GENUINELY MISSING PIECES
+================================================================================
+
+Three. None requires a new framework.
+
+
+3.1 DETERMINISTIC POST-RENDER QC                                           [C]
+--------------------------------------------------------------------------------
+Nothing inspects the MP4. Split into three tiers and keep them separate.
+
+  TIER 1 — CONTAINER / TECHNICAL (ffmpeg, deterministic)
+    - resolution, fps
+    - duration within +/- 0.5s of plan.durationSec
+    - audio stream present and AAC
+    - audio duration approximately equals video duration
+    - no silent regions where narration is scheduled
+    - blackdetect for blank frames
+    - freezedetect for a stage that renders nothing
+    - SAFE-ZONE assertion: no presenter or caption pixel inside the
+      TikTok / Reels control rectangles.
+      (Independent review flagged lower-left platform safety as
+       undemonstrated -- MASTER_HANDOFF line 34. This is mechanical,
+       not aesthetic.)
+    ffmpeg is already a de facto dependency: inspect-render.ts line 48
+    shells out to it.
+
+  TIER 2 — PLAN vs RENDER CONFORMANCE (deterministic, cheap, absent,
+           HIGHEST VALUE)
+    We have word timestamps. For sampled frames, assert:
+    - the caption text matches the word expected at that timestamp
+    - the spine's active index matches the chapter
+    - THE STATUS CHIP EQUALS beat.state
+
+    That last check alone would have caught all 20 inter-beat leaks
+    directly from the MP4, with no vision model and no plan simulation.
+    It generalizes to every future script for free.
+    This is the single cheapest high-value item in the entire analysis.
+
+  TIER 3 — ART DIRECTION (vision, judgment)
+    inspect-render.ts. Keep strictly separate. Never let it arbitrate
+    anything tiers 1-2 can prove.
+
+
+3.2 GOVERNED FEEDBACK -> STUDIO MEMORY                                     [C]
+--------------------------------------------------------------------------------
+We have excellent memory ARTIFACTS and no memory PROCESS.
+
+  - No defined producer. Docs are edited by whichever agent happens to be
+    writing a handoff.
+  - No provenance outside G01-G13. The section-0 reconciliations carry no
+    evidence IDs.
+  - No expiry or review trigger -- exactly why MASTER_HANDOFF section 12
+    went stale while remaining authoritative.
+  - src/film/style-guide.ts -- the ONLY memory the model actually receives
+    at direction time -- is a hand-maintained 12-line excerpt of a 217-line
+    guide. Nothing keeps them in sync. If a G-rule changes, styleRules
+    silently does not.
+
+The four founder observations (presenter too mechanically anchored, static
+cards feel wrong, transitions feel like clips under clips, visuals should
+behave like the references) DID reach the documents -- but via an expensive
+Opus analysis plus an independent audiovisual review. That is a heroic
+process, not a repeatable one.
+
+DO NOT COPY THEIR APPEND-TO-SKILL REFLEX. Their skill grows forever and a
+one-off preference looks identical to a load-bearing rule. The correct shape
+is a PROMOTION LADDER (section 6 below).
+
+KEY ASYMMETRY: the strongest form of studio memory is not a longer document.
+It is a SHORTER document plus a TEST. Our own gate already demonstrates
+this: "hold the last started beat during silence" did not become a style
+rule. It became hold.ts plus gap-regression.ts. That is the model.
+
+HARD RULE TO ADOPT: A BUG NEVER BECOMES A STYLE RULE.
+prod-builder/NOTES.md line 13 records that the premature Tools steps were a
+RENDERER TIMING BUG. Appended to a skill as "don't show the replacement
+early", that would have become a permanent prose rule masking a code defect.
+
+
+3.3 AN EXECUTABLE ACTION VOCABULARY                                        [C]
+--------------------------------------------------------------------------------
+Our own documents have independently converged on this.
+MOTION_STYLE_GUIDE section 8: "G01/G02/G03/G07 improvement must be
+demonstrated by rendered action rather than additional prompt language."
+
+THE PRECISE GAP: the reference work produced RULES, not VERBS.
+
+The system has NOUNS -- 135 components, 7 graphics, one BespokeDiagram
+schema -- and no VERBS. Yet P1-P6 in our own style guide are entirely
+verbs: request marks APPROACH a counter; a brain CONNECTS THROUGH hands to
+windows; a row CHANGES from Draft to Ready; the view PULLS BACK.
+
+tools-action.tsx proves the substrate is fine -- 92 lines of plain SVG
+travels a token across an API boundary using clock.progress. But it is
+reached by StructuredFilm.tsx line 93:
+
+    chapter.name === "Tools" ? <ToolsAction /> : ...
+
+A hardcoded string match on the chapter name, bypassing FilmPiece entirely.
+Legitimate as a gate prototype. It cannot survive. Any future film with a
+chapter named "Tools" renders the Mara API diagram.
+
+GENERALIZATION (after the gate passes): a small parameterized verb set --
+traverse, accumulate, select, block/refuse, transform, return -- in the
+bespoke path, chosen by stageSystem by SHAPE OF ACTION exactly as graphics
+are chosen by SHAPE OF INFORMATION.
+
+That requires a BESPOKE / ACTION REGISTRY mirroring registry.tsx, so new
+construction methods become DATA rather than renderer edits. That registry
+is the one piece of infrastructure worth establishing to keep future tool
+pluralism from making the renderer fragile.
+
+
+================================================================================
+4. WHAT WE ALREADY DO BETTER — DO NOT REINVENT
+================================================================================
+
+  TIMING AUTHORITY
+    They transcribe recorded speech with ASR to guess where graphics go. We
+    synthesize from a known script and receive word timestamps from the
+    generator: 100% token match, no inference error, and the alignment bug
+    class is already fixed and regression-covered. Categorically stronger,
+    and it is the foundation everything else rests on.
+
+  STUDIO MEMORY DESIGN
+    Authority ordering, LOCKED / FLEXIBLE / OPTIONAL status labels,
+    evidence IDs, explicit scope limits ("this guide cannot silently amend
+    them"), and a stated refusal to promote unmeasured timing/easing
+    constants. Their skill has none of this. Our weakness is PROCESS, not
+    DESIGN -- do not let the fix degrade the design.
+
+  COVERAGE AS A HARD FAILURE
+    directStructure throws when a sentence has no chapter. These workflows
+    would silently drop content and nobody would know.
+
+  PLACEMENT AUTHORITY
+    layoutFor as the only placer, after a documented raw-coordinate
+    failure. Neither transcript has an equivalent; both are one bad prompt
+    away from the failure mode we already escaped.
+
+  REPAIR GRANULARITY
+    Targeted re-beat / re-stage of up to four weak chapters with the rest
+    preserved. Their loop is "re-prompt the whole thing."
+
+  IDENTITY GOVERNANCE
+    The Character Bible's per-attribute lock discipline is far beyond
+    "character bible" as either transcript uses the term.
+
+  HONEST VALIDATION
+    The system produced a technically perfect render -- correct resolution,
+    100% alignment, truthful data model -- and our process REFUSED TO
+    APPROVE IT. That is a stronger quality culture than anything in these
+    videos, where the standard is "it's not perfect, right? But look how
+    good this was in one prompt."
+
+
+================================================================================
+5. WHAT WE SHOULD EXPLICITLY NOT COPY
+================================================================================
+
+  HYPERFRAMES                                                            [E]
+    Remotion already is "write code, get a deterministic video".
+    Hyperframes is "write HTML, get a video". The substrate was never the
+    constraint -- tools-action.tsx disproves it. Adopting it means either
+    rebuilding layoutFor, the four-layer compositor, the 135-component
+    catalog, Sequence, premountFor and audio muxing on a second engine, OR
+    compositing its output as video clips into Remotion -- at which point
+    those clips carry their own clock and we reintroduce the exact defect
+    class (tab-switch-panel advancing autonomously) this phase exists to
+    eliminate.
+
+  MOTION CANVAS / GSAP                                                   [E]
+    Motion Canvas duplicates Remotion with no narration-alignment story.
+    GSAP's only plausible case (complex intra-stage choreography) is
+    covered by interpolate / spring at a fraction of the integration cost.
+
+  MUSIC-BEAT SYNCHRONIZATION                                             [E]
+    Ruled out previously, still correct. Our clock is the spoken word, and
+    an educational explainer is paced to comprehension.
+
+  THE ONE-SHOT MEGA-PROMPT                                               [E]
+    Both transcripts celebrate it. It cannot be partially validated or
+    partially repaired, and it dissolves the harness. Our staged typed
+    passes are the reason we can repair one chapter.
+
+  APPEND-ONLY SKILL GROWTH                                               [E]
+    1,400 lines, 36 rules, no provenance, no expiry. We are already
+    experiencing the failure mode (section 12) at a fraction of that size.
+
+  RASTER AI B-ROLL                                                       [E]
+    Fastest available route to destroying the paper/ink/coral identity,
+    and it cannot be beat-gated.
+
+  SCREEN-EDITOR ROLE (TELLA)                                             [E]
+    No referent in this format.
+
+  COST-PER-VIDEO FRAMING                                                 [E]
+    Their economics compare against hiring an editor. Ours compares
+    against a quality bar. Different objective function; do not import the
+    metric.
+
+
+================================================================================
+6. RECOMMENDED FUTURE ARCHITECTURE
+================================================================================
+
+Nothing below changes the four-layer grammar, layoutFor, the narration
+clock, or the structured passes.
+
+    script (supplied, verbatim)
+      -> structureSystem            whole film
+      -> beatSystem  x N
+      -> stageSystem x N  --------+
+      -> inspectPlan (deterministic, plan-level)        [EXISTS]
+      -> targeted repair                                [EXISTS]
+      -> render                                         [EXISTS]
+         |
+         +-- TIER 1  technical QC
+         |           ffmpeg: codec, duration, audio, black, freeze,
+         |           safe-zone                                    <- NEW [C]
+         +-- TIER 2  plan vs render conformance
+         |           caption / spine / chip vs expected at sampled
+         |           frames                                       <- NEW [C]
+         +-- TIER 3  visual critique
+                     inspect-render.ts, vision, judgment      [IN FLIGHT]
+         |
+      -> targeted repair -> re-render
+      -> deliverable
+
+            +------------ stage construction backends ------------+
+            |  library | procedural | bespoke diagram | ACTION VERBS <- NEW [C]
+            |                     via a BESPOKE / ACTION REGISTRY   <- NEW [B]
+            |            (replaces  chapter.name === "Tools")
+            +-----------------------------------------------------+
+
+
+    STUDIO LEARNING LOOP  (separate, slower, explicitly NOT per-film)
+                                                                  <- NEW [C]
+      N films + founder feedback
+        -> OBSERVATION   film NOTES.md, timestamped -- never a rule
+        -> CANDIDATE     >= 2 distinct films OR a named code root cause;
+                         staged, labeled
+        -> PROMOTION     choose the strongest available form:
+                           (a) CODE CONSTRAINT  if deterministically
+                               checkable            <- PREFERRED
+                           (b) G-RULE  evidence IDs + reject clause +
+                               scope + review trigger
+                           (c) CAPABILITY  a renderer channel, not a
+                               sentence
+        -> styleRules.ts DERIVED from the guide, never hand-maintained
+        -> periodic PRUNE  (memory must shrink as well as grow)
+
+
+TWO LOOPS, EXPLICITLY DISTINGUISHED
+--------------------------------------------------------------------------------
+  PER-FILM LOOP
+    plan -> render -> QC + critic -> targeted repair -> re-render
+    Scope: one film. Artifact: a repaired MP4 and its NOTES.md.
+    NEVER TOUCHES STUDIO MEMORY.
+
+  STUDIO LOOP
+    Multiple films + founder feedback -> promotion ladder above.
+    Artifact: a governed diff with provenance.
+
+
+EVIDENCE THRESHOLD
+--------------------------------------------------------------------------------
+  OBSERVATION       One film, one moment, founder note.
+                    Lives in that film's NOTES.md, timestamped.
+
+  CANDIDATE         Reproduced in >= 2 DISTINCT FILMS (not 2 chapters of
+                    one film), or traced to a named code root cause.
+                    Lives in a staging section, explicitly labeled.
+
+  APPROVED RULE     Candidate + one rendered counter-example + a reject
+                    clause + evidence IDs + a REVIEW TRIGGER.
+                    Lives in MOTION_STYLE_GUIDE G-rules.
+
+  CODE CONSTRAINT   Any rule that is deterministically checkable.
+                    Lives in code + a regression test.
+                    ALWAYS PREFERRED.
+
+  NEVER PROMOTE     Anything whose root cause is a code defect.
+                    Anything observed in a single frame.
+                    Any timing / easing / density / occupancy number
+                    without measurement (the guide already forbids this --
+                    keep it).
+
+  The missing field everywhere today is the REVIEW TRIGGER -- e.g.
+  "re-examine when the renderer gains action primitives". Its absence is
+  precisely why section 12 went stale while remaining authoritative.
+
+
+================================================================================
+7. PRIORITY ORDER
+================================================================================
+
+CURRENT PHASE — DO NOT DISTURB
+--------------------------------------------------------------------------------
+RENDER TRUTH & VISUAL ACTION GATE, exactly as approved. Steps 1-6 stand.
+
+Two additions that fall INSIDE its stated scope and cost very little:
+
+  a) TIER 1 + TIER 2 QC as the honest implementation of step 5's
+     "re-render and inspect". Tier 2's chip-vs-expected-state check is the
+     deterministic generalization of the bug this gate exists to fix, and
+     it keeps working on every future script.
+
+  b) EMIT AN ACTION CUE LIST as a byproduct of step 4. The traversal
+     already enumerates its events (depart, cross, arrive, state change).
+     Writing them to cues.json alongside props.json costs almost nothing
+     and means sound, whenever it happens, never has to re-derive the
+     timeline.
+
+Nothing else. Specifically: NO action-vocabulary generalization, NO
+FilmDirection, NO memory refactor during the gate.
+
+
+NEXT PHASE
+--------------------------------------------------------------------------------
+  1. GENERALIZE THE ACTION VOCABULARY + BESPOKE/ACTION REGISTRY.
+     Retire chapter.name === "Tools". This is the executable counterpart to
+     G01 and should land alongside -- probably slightly before -- the
+     already-identified Continuity & Film Direction phase, because
+     transition intent needs verbs to express "carry" and "transform".
+
+  2. STUDIO-MEMORY GOVERNANCE.
+     Provenance fields, the promotion ladder, review triggers, derive
+     styleRules.ts from the guide, and PRUNE section 12 rather than
+     annotating it.
+
+  3. SECOND-SCRIPT VALIDATION (already queued).
+
+
+LATER
+--------------------------------------------------------------------------------
+  4. SOUND-DESIGN PASS. By then the cue list exists and this becomes mostly
+     a mixing problem rather than a timing problem.
+
+  5. PRESENTER PERFORMANCE CHANNEL -- anchor, gaze target, entrance/exit,
+     safe-zone-aware blocking. Explicitly out of scope now, correctly so.
+
+  6. CURATED SVG PROP LIBRARY gated on illustrationGap, at most one
+     illustrated prop per film. public/illustrations/retro-tv-brain.svg is
+     already the right pattern: generated offline, reviewed, named,
+     committed.
+     PREVENTION OF GENERIC AI B-ROLL IS STRUCTURAL -- a finite curated
+     library whose assets are NOUNS INSIDE A STAGE, NEVER THE STAGE -- not
+     a taste prompt at render time.
+
+  7. UNATTENDED OPERATION. Blocked by the absence of a pass/fail gate, not
+     by automation; becomes nearly free once tiers 1-3 exist.
+
+
+PROBABLY NEVER
+--------------------------------------------------------------------------------
+  Hyperframes / Motion Canvas / GSAP adoption. Screen-editor role.
+  Music-beat sync. Raster AI B-roll. Append-only skill. One-shot
+  mega-prompt. Browser-based B-roll acquisition as a standing capability.
+
+
+NOTE ON THE RESEARCHER ROLE AND PROVENANCE
+--------------------------------------------------------------------------------
+If a script ever DOES make a verifiable real-world claim, the right design
+is not "fetch B-roll" -- it is a CLAIM GATE. The structure pass flags the
+factual claim; it must either be sourced and displayed with provenance, or
+removed from the script. That matches our existing policy (fictional cases
+allowed, fabricated real-world facts forbidden) rather than bolting on a
+research agent.
+
+Today this is a solution without a problem: no script to date cites an
+external fact.
+
+
+================================================================================
+8. MOST IMPORTANT QUESTION — ANSWERED DIRECTLY
+================================================================================
+
+Q: Are there infrastructure ideas in these two transcripts that we are
+   currently missing and should incorporate, or are they mostly alternate
+   implementations of capabilities we already have?
+
+A: MOSTLY THE LATTER -- WITH THREE REAL EXCEPTIONS, ALL OF THEM
+   INFRASTRUCTURE, NONE REQUIRING A NEW TOOL OR FRAMEWORK.
+
+The genuinely missing pieces are:
+   1. deterministic post-render QC
+   2. a governed feedback -> studio-memory promotion process
+   3. an executable action vocabulary
+
+Everything else is either:
+   (a) already implemented more strongly here -- timing authority, memory
+       design, coverage enforcement, placement authority, repair
+       granularity, identity governance; or
+   (b) belongs to a fundamentally different product: editing footage
+       someone recorded, rather than generating a film that does not yet
+       exist.
+
+TWO THINGS WORTH HOLDING ONTO BEYOND THE SPECIFIC FINDINGS:
+
+FIRST: the strongest single idea in both videos -- the agent inspects its
+own render and iterates before a human sees it -- is already our approved
+active phase. The transcripts ratify the Render Truth & Visual Action Gate.
+I looked for an architectural blocker that would justify superseding it and
+did not find one.
+
+SECOND, AND LESS COMFORTABLE: the thing these creators do that we
+structurally cannot is close the loop on their own taste in minutes,
+repeatedly, cheaply. Not because their tooling is better -- it is markedly
+worse -- but because feedback has a mechanical destination and the next run
+is five minutes away.
+
+Our studio memory is better in every dimension except CIRCULATION. The fix
+is not a bigger document and definitely not an append-only skill; it is the
+promotion ladder in section 6, with the strong bias that anything checkable
+becomes a TEST rather than a SENTENCE.
+
+hold.ts + gap-regression.ts is what that looks like done correctly, and it
+was built today.
+
+
+
+################################################################################
+#  PART ONE — EARLIER ANALYSIS (RECORDED FOR PROVENANCE)                       #
+#  "How to Make Insane Motion Graphics With Opus 5.5" / director's brief       #
+#  STATUS: already reconciled into MASTER_HANDOFF section 0, with one          #
+#  ordering correction accepted by the owner.                                  #
+################################################################################
+
+
+HEADLINE DIAGNOSIS
+================================================================================
+The hypothesis (a missing film-level creative-direction layer) was CORRECT IN
+ITS CONCLUSION AND WRONG IN ITS CAUSAL ORDERING.
+
+The precise statement of the hole:
+
+    NOTHING IN THE SYSTEM IS BOTH FILM-SPECIFIC AND VISUAL.
+
+  - creative-standard.md, MOTION_STYLE_GUIDE.md, the Character Bible,
+    styleRules: visual, but FILM-INVARIANT.
+  - the catalog and stage-fit.json: visual, but CONTENT-INVARIANT.
+  - the script: film-specific, but VERBAL.
+  - structure.json: film-specific, but ORGANIZATIONAL, NOT VISUAL.
+
+Of ChapterBrief's eleven fields, only title, spine and example are
+film-level, and each is a LABEL. structureSystem is a DECOMPOSITION pass
+that reads the whole script, not an INTERPRETATION pass that conceives the
+whole film.
+
+The only information that travels between chapters (direct-structure.ts
+lines 244-246):
+
+    const avoid = previous ? [previous.component || previous.graphic] : [];
+
+A de-duplication blacklist. NEGATIVE COORDINATION STANDING IN FOR DIRECTION.
+The system knows "don't use record again". It cannot know "chapter 5 shows
+the inbox from chapter 1, now resolved."
+
+
+TWO CORROBORATING FINDINGS
+================================================================================
+1. THE BEAT PASS RUNS BEFORE THE STAGE PASS.
+   direct-structure.ts lines 209-231, then 238-246. beatSystem opens with
+   "The chapter's main object is already chosen" -- false at call time.
+   Consequence, provable: Beat.reveal is documented as "ids of diagram
+   nodes allowed on screen during this beat", is parsed and normalized
+   (structure-normalize.ts 198-207), is carried into plan.json, and IS READ
+   BY NO RENDERER ANYWHERE. A field built for cross-pass coordination, dead
+   because of pass order.
+
+2. THE CRITIC'S RULES EXIST TO CATCH ERRORS THAT ONLY EXIST BECAUSE
+   DIRECTION IS LOCAL.
+   critique.ts lines 46-54 checks whether a recap beat reset the case to
+   WAITING after it resolved. That failure is possible only because each
+   chapter's beat pass invents state strings with no film-level ledger.
+
+
+WHY A DIRECTOR'S BRIEF IS NOT THE SAME AS A BIGGER PROMPT
+================================================================================
+styleRules is ALREADY the failure mode: twelve lines of excellent creative
+advice injected identically into all three passes, including G01 and G06
+verbatim -- and C1/C2/C3 in the motion guide are precisely G01/G06
+violations in the render.
+
+A BIGGER PROMPT CHANGES WHAT A PASS IS TOLD TO VALUE.
+A CREATIVE-DIRECTION LAYER CHANGES WHAT A PASS KNOWS.
+
+Three tests. Real direction:
+  1. produces a durable artifact alongside structure.json and plan.json,
+     diffable, reviewable before any render;
+  2. causes a later chapter's decision to change because of a DIFFERENT
+     chapter's decision -- not via a blacklist;
+  3. can be wrong in a way that is detectable and repairable pre-render.
+
+At the time of writing: zero of three.
+
+
+WHAT THE 16:40 DIRECTOR'S-BRIEF SLIDE ACTUALLY CONTAINED
+================================================================================
+  Film in one line  ... weakly present (title is a label, never a test)
+  References        ... PRESENT AND STRONGER (10 films, evidence IDs,
+                        explicit refusal to promote unmeasured constants)
+  Tools & keys      ... PRESENT
+  Character bible   ... PRESENT, stronger on identity, weaker on
+                        performance (2 assets, no pose/expression library)
+  Beat sheet        ... PARTLY (no payoff cadence, no hook)
+  Text on screen    ... PRESENT AND STRONGER
+  Workflow gates    ... PARTLY, weakest row (plan -> render only)
+  Critique loop     ... MISSING as described (inspectPlan is pre-render,
+                        symbolic)
+  Deliverables      ... PRESENT AND STRONGER
+
+5 of 9 already present, several stronger. 2 partly. 2 genuinely missing --
+and NEITHER of the missing two is creative direction.
+
+The concept actually being reached for is clearer EARLIER in that video:
+  - "show me the state list and the beat grid before writing code"
+  - "one container never cuts; every state is the same element changing"
+  - iteration, not generation (163 model calls, ~7 hours)
+
+
+WHAT THE LAYER WOULD AND WOULD NOT FIX
+================================================================================
+WOULD FIX (confident):
+  - independent layouts replacing one another (needs a transition layer too)
+  - no single authorial conception
+  - "satisfies narration but isn't art-directed" (needs layoutFor modes)
+  - G11 / G13 state contradictions, eliminated at the source by a ledger
+  - repeated record openings and stage drift
+
+WOULD FIX ONLY PARTIALLY:
+  - static cards -- ONLY if action primitives land first
+  - mechanical presenter -- ONLY with a position/gaze channel and more art
+
+WOULD NOT FIX:
+  - the illustration / environment gap
+  - component-internal text clipping; the 19-char record value budget
+  - component-native background bleed
+  - components animating on their own clock
+  - phone-scale legibility generally
+  - run-to-run reproducibility
+  - 171s being long for TikTok (a script-length decision)
+  - MOST IMPORTANTLY: it does not inspect the result. Build only this and
+    the traces get more ambitious while the renders stay equally static.
+
+
+RECOMMENDED SEQUENCE AT THE TIME (and as accepted)
+================================================================================
+  1. The visual critic that looks at rendered frames. All five reported
+     symptoms are invisible to inspectPlan; without it there is no
+     instrument to score any creative change.
+  2. Two renderer capabilities for direction to land on: a chapter
+     transition layer, and a real action/connection primitive. Plus
+     layoutFor modes.
+  3. THEN the film-level director pass, scoped to decisions that now have
+     channels.
+
+SUMMARY LINE:
+  "You diagnosed a real hole, but you are looking at it from the top. The
+   brief is the roof; the critic and the primitives are the walls. Right
+   now a chapter cannot show an action, cannot hand anything to the next
+   chapter, and cannot be told it was wrong."
+
+OWNER RECONCILIATION (MASTER_HANDOFF section 0, 2026-10-08):
+  All four causes accepted. Ordering accepted with the correction that the
+  16-18s overlap is an INTRA-chapter inter-beat fallback bug, not a
+  cross-chapter transition failure. A fifth cause was added: the limited
+  presenter-performance channel. Resulting approved phase: RENDER TRUTH &
+  VISUAL ACTION GATE.
+
+
+================================================================================
+END OF DOCUMENT
+================================================================================

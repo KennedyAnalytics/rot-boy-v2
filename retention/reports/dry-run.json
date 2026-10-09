@@ -1,0 +1,825 @@
+{
+  "generatedAt": "2026-10-09T04:54:51.305Z",
+  "deleted": false,
+  "totalBytes": 3859531968,
+  "totalFiles": 38297,
+  "safeRecoverableBytes": 91718507,
+  "heldRecoverableBytes": 145511057,
+  "aggressiveRecoverableBytes": 1806091324,
+  "categories": [
+    {
+      "category": "render-cache",
+      "bytes": 1255309073,
+      "files": 418
+    },
+    {
+      "category": "dependency",
+      "bytes": 550782251,
+      "files": 32646
+    },
+    {
+      "category": "acceptance",
+      "bytes": 505532007,
+      "files": 2622
+    },
+    {
+      "category": "reference",
+      "bytes": 462906183,
+      "files": 39
+    },
+    {
+      "category": "unique-studio-render",
+      "bytes": 252172883,
+      "files": 8
+    },
+    {
+      "category": "reproducible-intermediate",
+      "bytes": 237196497,
+      "files": 21
+    },
+    {
+      "category": "regression",
+      "bytes": 207939415,
+      "files": 189
+    },
+    {
+      "category": "authoritative",
+      "bytes": 179581488,
+      "files": 1321
+    },
+    {
+      "category": "referenced-rd",
+      "bytes": 102186170,
+      "files": 106
+    },
+    {
+      "category": "active-phase",
+      "bytes": 61038494,
+      "files": 175
+    },
+    {
+      "category": "narration",
+      "bytes": 25400160,
+      "files": 24
+    },
+    {
+      "category": "unclassified",
+      "bytes": 10109517,
+      "files": 48
+    },
+    {
+      "category": "source",
+      "bytes": 3072277,
+      "files": 362
+    },
+    {
+      "category": "historical-trace",
+      "bytes": 3048625,
+      "files": 299
+    },
+    {
+      "category": "character",
+      "bytes": 2790879,
+      "files": 4
+    },
+    {
+      "category": "config",
+      "bytes": 432982,
+      "files": 13
+    },
+    {
+      "category": "temporary",
+      "bytes": 33067,
+      "files": 2
+    }
+  ],
+  "largestDirectories": [
+    {
+      "path": "node_modules",
+      "bytes": 1806091324
+    },
+    {
+      "path": "out",
+      "bytes": 1066420158
+    },
+    {
+      "path": "node_modules/.cache",
+      "bytes": 928759285
+    },
+    {
+      "path": "out/continuity-v1",
+      "bytes": 685113495
+    },
+    {
+      "path": "public",
+      "bytes": 520615817
+    },
+    {
+      "path": "public/jobs",
+      "bytes": 517818165
+    },
+    {
+      "path": "references",
+      "bytes": 462906183
+    },
+    {
+      "path": "node_modules/.remotion",
+      "bytes": 282144288
+    },
+    {
+      "path": "references/Video references Good",
+      "bytes": 170469900
+    },
+    {
+      "path": "node_modules/@remotion",
+      "bytes": 125423151
+    },
+    {
+      "path": "references/failed videos",
+      "bytes": 76524413
+    },
+    {
+      "path": "out/motion-v1",
+      "bytes": 61038494
+    },
+    {
+      "path": "out/prod-gate",
+      "bytes": 56903184
+    },
+    {
+      "path": "node_modules/@rspack",
+      "bytes": 49581501
+    },
+    {
+      "path": "out/structure",
+      "bytes": 46434058
+    },
+    {
+      "path": "out/prod-supplied",
+      "bytes": 46332272
+    },
+    {
+      "path": "node_modules/.vite",
+      "bytes": 44405500
+    },
+    {
+      "path": "out/prod-cold",
+      "bytes": 41131390
+    },
+    {
+      "path": "out/prod-builder",
+      "bytes": 37075884
+    },
+    {
+      "path": "out/f2",
+      "bytes": 33709164
+    },
+    {
+      "path": "references/latest production render",
+      "bytes": 33591367
+    },
+    {
+      "path": "node_modules/hls.js",
+      "bytes": 32827430
+    },
+    {
+      "path": "node_modules/@babel",
+      "bytes": 32730306
+    },
+    {
+      "path": "node_modules/maplibre-gl",
+      "bytes": 28099870
+    },
+    {
+      "path": "node_modules/stats-gl",
+      "bytes": 27550016
+    },
+    {
+      "path": "node_modules/three-stdlib",
+      "bytes": 26936979
+    },
+    {
+      "path": "out/prod-harden",
+      "bytes": 26496685
+    },
+    {
+      "path": "node_modules/typescript",
+      "bytes": 23625066
+    },
+    {
+      "path": "node_modules/three",
+      "bytes": 20443256
+    },
+    {
+      "path": "node_modules/@mediapipe",
+      "bytes": 20412943
+    }
+  ],
+  "largestFiles": [
+    {
+      "path": "references/Video references Good.zip",
+      "bytes": 167329606
+    },
+    {
+      "path": "public/jobs/render-1791364383064/video.mp4",
+      "bytes": 66240693
+    },
+    {
+      "path": "public/jobs/render-1791392632323/video.mp4",
+      "bytes": 53941863
+    },
+    {
+      "path": "references/failed videos/failed experiment.mp4",
+      "bytes": 53941863
+    },
+    {
+      "path": "references/Video references Good/ref-9.mp4",
+      "bytes": 47314142
+    },
+    {
+      "path": "public/jobs/render-1791477142317/video.mp4",
+      "bytes": 33628944
+    },
+    {
+      "path": "out/prod-supplied/film.mp4",
+      "bytes": 33591367
+    },
+    {
+      "path": "public/jobs/render-1791478194701/video.mp4",
+      "bytes": 33591367
+    },
+    {
+      "path": "references/latest production render/latest production render.mp4",
+      "bytes": 33591367
+    },
+    {
+      "path": "out/structure/film.mp4",
+      "bytes": 32003395
+    },
+    {
+      "path": "out/motion-v1/mara-candidate-1/film.mp4",
+      "bytes": 31881389
+    },
+    {
+      "path": "references/Video references Good/ref-10.mp4",
+      "bytes": 31657205
+    },
+    {
+      "path": "out/f2/film.mp4",
+      "bytes": 30264900
+    },
+    {
+      "path": "out/continuity-v1/mara-production/film.mp4",
+      "bytes": 30176885
+    },
+    {
+      "path": "public/jobs/render-1791488812238/video.mp4",
+      "bytes": 29698895
+    },
+    {
+      "path": "public/jobs/render-1791489428749/video.mp4",
+      "bytes": 29187847
+    },
+    {
+      "path": "out/prod-builder/film.mp4",
+      "bytes": 28968506
+    },
+    {
+      "path": "public/jobs/render-1791489778255/video.mp4",
+      "bytes": 28968506
+    },
+    {
+      "path": "out/prod-cold/film.mp4",
+      "bytes": 28394840
+    },
+    {
+      "path": "public/jobs/render-1791500980453/video.mp4",
+      "bytes": 28394840
+    },
+    {
+      "path": "out/continuity-v1/larkspur/film.mp4",
+      "bytes": 27847245
+    },
+    {
+      "path": "public/jobs/render-1791497676040/video.mp4",
+      "bytes": 26012384
+    },
+    {
+      "path": "out/prod-gate/film.mp4",
+      "bytes": 26012275
+    },
+    {
+      "path": "public/jobs/render-1791498143968/video.mp4",
+      "bytes": 26012275
+    },
+    {
+      "path": "public/jobs/render-1791497107476/video.mp4",
+      "bytes": 26002019
+    }
+  ],
+  "landmarks": [
+    {
+      "path": "out/continuity-v1/mara-v1-production/film.mp4",
+      "role": "Current authoritative Mara baseline and visual-direction reference",
+      "exists": true,
+      "bytes": 22692312
+    },
+    {
+      "path": "out/continuity-v1/larkspur-verified/film.mp4",
+      "role": "Current Larkspur cold-script validation fixture",
+      "exists": true,
+      "bytes": 12621957
+    },
+    {
+      "path": "out/prod-harden/film.mp4",
+      "role": "Before/after and regression baseline",
+      "exists": true,
+      "bytes": 25631686
+    },
+    {
+      "path": "out/prod-cold/film.mp4",
+      "role": "Earlier cold-path regression baseline",
+      "exists": true,
+      "bytes": 28394840
+    },
+    {
+      "path": "out/prod-gate/film.mp4",
+      "role": "Operational baseline after the Render Truth gate",
+      "exists": true,
+      "bytes": 26012275
+    },
+    {
+      "path": "out/prod-builder/film.mp4",
+      "role": "Negative narration-gap fixture",
+      "exists": true,
+      "bytes": 28968506
+    },
+    {
+      "path": "out/prod-supplied/film.mp4",
+      "role": "Earlier static-stage regression baseline",
+      "exists": true,
+      "bytes": 33591367
+    },
+    {
+      "path": "out/continuity-v1/ACCEPTANCE_EVIDENCE.md",
+      "role": "Continuity v1 acceptance evidence",
+      "exists": true,
+      "bytes": 17176
+    },
+    {
+      "path": "out/motion-v1",
+      "role": "Current Motion Choreography phase output",
+      "exists": true,
+      "bytes": null
+    },
+    {
+      "path": "public/jobs/reuse-mara/voice.mp3",
+      "role": "Mara narration referenced by current and continuity props",
+      "exists": true,
+      "bytes": 2728899
+    },
+    {
+      "path": "public/jobs/voice-1791500948631/voice.mp3",
+      "role": "Larkspur and prod-cold narration",
+      "exists": true,
+      "bytes": 2912383
+    },
+    {
+      "path": "public/jobs/voice-1791500948631/words.json",
+      "role": "Larkspur and prod-cold word alignment",
+      "exists": true,
+      "bytes": 31995
+    },
+    {
+      "path": "public/jobs/voice-1791477106811/voice.mp3",
+      "role": "prod-supplied narration",
+      "exists": true,
+      "bytes": 2728899
+    },
+    {
+      "path": "public/jobs/voice-1791477106811/words.json",
+      "role": "prod-supplied word alignment",
+      "exists": true,
+      "bytes": 35754
+    },
+    {
+      "path": "public/character/corporate-defector-presenting.webm",
+      "role": "Corporate Defector lead asset",
+      "exists": true,
+      "bytes": 667370
+    },
+    {
+      "path": "public/character/corporate-defector-tablet-idle.webm",
+      "role": "Corporate Defector beside asset",
+      "exists": true,
+      "bytes": 413124
+    },
+    {
+      "path": "references/my-character/Corporate_Defector_Character_Bible_v1.md",
+      "role": "Character identity source",
+      "exists": true,
+      "bytes": 19317
+    },
+    {
+      "path": "references/STUDIO_MEMORY.md",
+      "role": "Studio Memory",
+      "exists": true,
+      "bytes": 1903
+    },
+    {
+      "path": "references/MASTER_HANDOFF_AI_MOTION_GRAPHICS_STUDIO.md",
+      "role": "Source-of-truth handoff",
+      "exists": true,
+      "bytes": 25567
+    }
+  ],
+  "safe": [
+    {
+      "path": "public/jobs/render-1791364383064/voice.mp3",
+      "bytes": 2698388,
+      "sha256": "cccd79e687fdd05401906aea96e078c161b84448cf6bb20a18ddb25e497868ea",
+      "matches": "public/jobs/voice-1791363904479/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/voice-1791363904479/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791392632323/video.mp4",
+      "bytes": 53941863,
+      "sha256": "23548f1fd6df2aeb1e06c835e0eef1da2cdba0d3b776b49901e146a3005547be",
+      "matches": "references/failed videos/failed experiment.mp4",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected references/failed videos/failed experiment.mp4",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791392632323/voice.mp3",
+      "bytes": 2298401,
+      "sha256": "e49933a4e3f9a5975cf746c76d594f3d5033d4999c6e6c1f56c0bd5c57b05bf2",
+      "matches": "public/jobs/voice-1791392475954/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/voice-1791392475954/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791477142317/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791478037218/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791478142989/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791478194701/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791488812238/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791489428749/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791489778255/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791497107476/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791497676040/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791498143968/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791500151416/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "public/jobs/render-1791500506454/voice.mp3",
+      "bytes": 2728899,
+      "sha256": "9358557b326f48f51b9c6d54fac91d6857a353404e99853c516519ebb194d17c",
+      "matches": "public/jobs/reuse-mara/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/reuse-mara/voice.mp3",
+      "mode": "safe"
+    },
+    {
+      "path": "out/remotionui-install.log",
+      "bytes": 32087,
+      "sha256": null,
+      "matches": null,
+      "rule": "temporary-file",
+      "reason": "Install log. The vendored library and package manifest remain.",
+      "mode": "safe"
+    },
+    {
+      "path": "out/tsc.txt",
+      "bytes": 980,
+      "sha256": null,
+      "matches": null,
+      "rule": "temporary-file",
+      "reason": "Typecheck log. Re-run tsc to regenerate.",
+      "mode": "safe"
+    }
+  ],
+  "held": [
+    {
+      "path": "public/jobs/render-1791478194701/video.mp4",
+      "bytes": 33591367,
+      "sha256": "75d0e614608c559f011682dcb1124650918c5fb8ddd52d2efb477046fdb22549",
+      "matches": "out/prod-supplied/film.mp4",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected out/prod-supplied/film.mp4, but modified within 12 hours"
+    },
+    {
+      "path": "public/jobs/render-1791489778255/video.mp4",
+      "bytes": 28968506,
+      "sha256": "fba7ea094125eb0635d36e62918d0d6a01b017ac71b41e6855c6639e3138d3f1",
+      "matches": "out/prod-builder/film.mp4",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected out/prod-builder/film.mp4, but modified within 12 hours"
+    },
+    {
+      "path": "public/jobs/render-1791498143968/video.mp4",
+      "bytes": 26012275,
+      "sha256": "fdd2c0281199f298319edee128564a8391d17b1b029ffa725cc1b570c744576d",
+      "matches": "out/prod-gate/film.mp4",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected out/prod-gate/film.mp4, but modified within 12 hours"
+    },
+    {
+      "path": "public/jobs/render-1791500506454/video.mp4",
+      "bytes": 25631686,
+      "sha256": "82572cae327b5b818b0fc8878feebe766c94c6e9a9577c4e602e4d9e42cb0092",
+      "matches": "out/prod-harden/film.mp4",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected out/prod-harden/film.mp4, but modified within 12 hours"
+    },
+    {
+      "path": "public/jobs/render-1791500980453/video.mp4",
+      "bytes": 28394840,
+      "sha256": "03f1782c6c162732ed848ba2b019252ca039fcefc019db44101d5d35a2359b6c",
+      "matches": "out/prod-cold/film.mp4",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected out/prod-cold/film.mp4, but modified within 12 hours"
+    },
+    {
+      "path": "public/jobs/render-1791500980453/voice.mp3",
+      "bytes": 2912383,
+      "sha256": "39cc27529889d1b272709463a28f76c150a6e011d7f804e4218ffd5fbb461838",
+      "matches": "public/jobs/voice-1791500948631/voice.mp3",
+      "rule": "duplicate-studio-render",
+      "reason": "Byte-identical to protected public/jobs/voice-1791500948631/voice.mp3, but modified within 12 hours"
+    }
+  ],
+  "aggressive": [
+    {
+      "path": "node_modules/.cache",
+      "bytes": 928759285,
+      "rule": "webpack-cache",
+      "mode": "aggressive",
+      "category": "render-cache",
+      "reason": "The next Remotion bundle() or webpack build rebuilds this directory. Stop any in-progress render first. No package reinstall is required for this folder alone."
+    },
+    {
+      "path": "node_modules/.remotion",
+      "bytes": 282144288,
+      "rule": "remotion-browser",
+      "mode": "aggressive",
+      "category": "render-cache",
+      "reason": "Remotion downloads Chrome headless shell again on the next render. That requires network access. Do not remove it during an active render."
+    },
+    {
+      "path": "node_modules/.vite",
+      "bytes": 44405500,
+      "rule": "vite-cache",
+      "mode": "aggressive",
+      "category": "render-cache",
+      "reason": "The next Vite dev or build prebundles dependencies again. No package reinstall is required for this folder alone."
+    },
+    {
+      "path": "node_modules",
+      "bytes": 1806091324,
+      "rule": "node-modules",
+      "mode": "aggressive",
+      "category": "dependency",
+      "reason": "Reinstall with: node scripts/npm.mjs ci   This also removes the webpack cache, the Remotion browser, and the Vite cache. Do not run it while another agent is installing, typechecking, or rendering."
+    }
+  ],
+  "review": [
+    {
+      "path": "references/Video references Good.zip",
+      "bytes": 167329606,
+      "exists": true,
+      "why": "Large archive. The style guide cites the zip by name, so the extracted folder does not make the zip disposable.",
+      "scheduled": false
+    },
+    {
+      "path": "out/continuity-v1/mara-verified",
+      "bytes": 137786820,
+      "exists": true,
+      "why": "Superseded Mara candidate. ACCEPTANCE_EVIDENCE says rejected candidates remain as loop history.",
+      "scheduled": false
+    },
+    {
+      "path": "out/continuity-v1/mara-delivery-final",
+      "bytes": 129261784,
+      "exists": true,
+      "why": "Earlier delivery candidate retained as loop history, not the current baseline.",
+      "scheduled": false
+    },
+    {
+      "path": "out/continuity-v1/mara-production",
+      "bytes": 74044776,
+      "exists": true,
+      "why": "Earlier production candidate retained as loop history.",
+      "scheduled": false
+    },
+    {
+      "path": "public/jobs/render-1791364383064",
+      "bytes": 66240693,
+      "exists": true,
+      "scheduled": false,
+      "why": "Unique studio render. No protected file has the same bytes, so it stays."
+    },
+    {
+      "path": "out/continuity-v1/larkspur",
+      "bytes": 59868238,
+      "exists": true,
+      "why": "Earlier Larkspur candidate. The current fixture is larkspur-verified.",
+      "scheduled": false
+    },
+    {
+      "path": "out/structure",
+      "bytes": 46434058,
+      "exists": true,
+      "why": "Referenced comparison film. Not production, and not approved for automatic deletion.",
+      "scheduled": false
+    },
+    {
+      "path": "out/continuity-v1/larkspur-delivery",
+      "bytes": 43415562,
+      "exists": true,
+      "why": "Earlier Larkspur delivery candidate retained as loop history.",
+      "scheduled": false
+    },
+    {
+      "path": "out/continuity-v1/larkspur-final",
+      "bytes": 36184558,
+      "exists": true,
+      "why": "Earlier Larkspur candidate retained as loop history.",
+      "scheduled": false
+    },
+    {
+      "path": "out/f2",
+      "bytes": 33709164,
+      "exists": true,
+      "why": "Referenced comparison film.",
+      "scheduled": false
+    },
+    {
+      "path": "public/jobs/render-1791477142317",
+      "bytes": 33628944,
+      "exists": true,
+      "scheduled": false,
+      "why": "Unique studio render. No protected file has the same bytes, so it stays."
+    },
+    {
+      "path": "public/jobs/render-1791488812238",
+      "bytes": 29698895,
+      "exists": true,
+      "scheduled": false,
+      "why": "Unique studio render. No protected file has the same bytes, so it stays."
+    },
+    {
+      "path": "public/jobs/render-1791489428749",
+      "bytes": 29187847,
+      "exists": true,
+      "scheduled": false,
+      "why": "Unique studio render. No protected file has the same bytes, so it stays."
+    },
+    {
+      "path": "public/jobs/render-1791497676040",
+      "bytes": 26012384,
+      "exists": true,
+      "scheduled": false,
+      "why": "Unique studio render. No protected file has the same bytes, so it stays."
+    },
+    {
+      "path": "public/jobs/render-1791497107476",
+      "bytes": 26002019,
+      "exists": true,
+      "scheduled": false,
+      "why": "Unique studio render. No protected file has the same bytes, so it stays."
+    },
+    {
+      "path": "public/jobs/render-1791500151416",
+      "bytes": 25622687,
+      "exists": true,
+      "scheduled": false,
+      "why": "Unique studio render. No protected file has the same bytes, so it stays."
+    },
+    {
+      "path": "public/jobs/render-cold-1791393913593",
+      "bytes": 15779414,
+      "exists": true,
+      "scheduled": false,
+      "why": "Unique studio render. No protected file has the same bytes, so it stays."
+    },
+    {
+      "path": "out/continuity-v1/mara-baseline-critic",
+      "bytes": 12454629,
+      "exists": true,
+      "why": "Baseline critique frames cited by the acceptance narrative.",
+      "scheduled": false
+    },
+    {
+      "path": "out/continuity-v1/real-critic",
+      "bytes": 10415329,
+      "exists": true,
+      "why": "Failed real-provider critique retained as loop history.",
+      "scheduled": false
+    },
+    {
+      "path": "out/diagnosis",
+      "bytes": 5898250,
+      "exists": true,
+      "why": "Comparison stills. Not named by the current source-of-truth docs. Kept until someone reviews them.",
+      "scheduled": false
+    },
+    {
+      "path": "out/floor",
+      "bytes": 1656411,
+      "exists": true,
+      "why": "Silent still set. Not named by the current source-of-truth docs. Kept until someone reviews them.",
+      "scheduled": false
+    }
+  ],
+  "warnings": []
+}
